@@ -1,0 +1,1620 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EM菌（有用微生物群）｜高認GAMBAシステム</title>
+<style>
+:root{
+  --cyan:#0e7490;--cyan-d:#0c6175;--cyan-l:#e0f2fe;--cyan-ll:#f0fafa;
+  --green:#15803d;--green-l:#dcfce7;
+  --amber:#b45309;--amber-l:#fef3c7;
+  --red:#b91c1c;--red-l:#fee2e2;
+  --purple:#7c3aed;--purple-l:#ede9fe;
+  --orange:#c2410c;--orange-l:#ffedd5;
+  --gray-900:#1e293b;--gray-700:#374151;--gray-500:#6b7280;
+  --gray-200:#e5e7eb;--gray-100:#f3f4f6;
+  --radius:10px;--shadow:0 2px 8px rgba(0,0,0,.10);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Hiragino Kaku Gothic ProN','Noto Sans JP',sans-serif;
+  background:#f8fafc;color:var(--gray-900);line-height:1.75;font-size:15px}
+a{color:var(--cyan)}
+
+.page-header{background:linear-gradient(135deg,var(--cyan) 0%,var(--cyan-d) 60%,#064e63 100%);
+  color:#fff;padding:2.5rem 1.5rem 2rem;text-align:center;position:relative;overflow:hidden}
+.page-header::before{content:'🦠';font-size:120px;position:absolute;right:-20px;top:-10px;opacity:.08}
+.badge{display:inline-block;background:rgba(255,255,255,.2);border:1px solid rgba(255,255,255,.35);
+  border-radius:20px;padding:.25rem .9rem;font-size:.78rem;letter-spacing:.08em;margin-bottom:.7rem}
+.page-header h1{font-size:2rem;font-weight:900;letter-spacing:.04em;margin-bottom:.4rem}
+.page-header .sub{font-size:.95rem;opacity:.88}
+
+.chapter-nav{display:flex;flex-wrap:wrap;gap:.5rem;background:#fff;
+  border-bottom:3px solid var(--cyan-l);padding:.8rem 1.2rem;
+  position:sticky;top:0;z-index:100;box-shadow:0 2px 6px rgba(0,0,0,.06)}
+.chapter-nav a{font-size:.82rem;font-weight:700;color:var(--cyan);
+  background:var(--cyan-l);border-radius:20px;padding:.28rem .75rem;transition:all .18s}
+.chapter-nav a:hover{background:var(--cyan);color:#fff}
+
+.container{max-width:860px;margin:0 auto;padding:1.5rem 1rem 4rem}
+.chapter{margin-bottom:3.5rem;scroll-margin-top:70px}
+.chapter-label{font-size:.72rem;font-weight:800;color:var(--cyan);
+  letter-spacing:.14em;text-transform:uppercase;margin-bottom:.4rem}
+.chapter h2{font-size:1.5rem;font-weight:900;color:var(--gray-900);
+  border-left:5px solid var(--cyan);padding-left:.75rem;margin-bottom:1.2rem}
+p{margin-bottom:.9rem}
+
+.sec-hd{font-size:1.08rem;font-weight:800;color:var(--cyan-d);
+  margin:1.4rem 0 .5rem;padding-bottom:.25rem;border-bottom:2px dotted var(--cyan-l)}
+.sec-body{background:#fff;border-radius:var(--radius);padding:1.1rem 1.3rem;
+  margin-bottom:1rem;box-shadow:var(--shadow)}
+
+.point{background:var(--cyan-ll);border-left:4px solid var(--cyan);
+  border-radius:0 var(--radius) var(--radius) 0;padding:.9rem 1.1rem;margin:1rem 0;font-weight:600}
+.point .pt-title{font-size:.78rem;font-weight:800;color:var(--cyan);letter-spacing:.1em;margin-bottom:.3rem}
+
+.memo{background:var(--amber-l);border-left:4px solid var(--amber);
+  border-radius:0 var(--radius) var(--radius) 0;padding:.85rem 1.1rem;margin:1rem 0;font-size:.91rem}
+.memo::before{content:'📝 ';font-size:.95rem}
+
+.warn{background:var(--red-l);border-left:4px solid var(--red);
+  border-radius:0 var(--radius) var(--radius) 0;padding:.85rem 1.1rem;margin:1rem 0;font-size:.91rem}
+.warn::before{content:'⚠️ ';font-size:.95rem}
+
+/* 人物コラム（比嘉先生用） */
+.story-box{background:linear-gradient(135deg,#fffbeb,#fef3c7);
+  border:2px solid var(--amber);border-radius:var(--radius);
+  padding:1.3rem 1.4rem;margin:1.2rem 0}
+.story-box .st-title{font-size:.78rem;font-weight:800;color:var(--amber);
+  letter-spacing:.12em;margin-bottom:.5rem}
+.story-box p{color:var(--gray-700);font-size:.93rem}
+
+.quote-box{background:#fff;border-left:5px solid var(--purple);border-radius:0 var(--radius) var(--radius) 0;
+  padding:1rem 1.3rem;margin:1.2rem 0;font-style:italic;font-size:1.05rem;
+  color:var(--gray-700);box-shadow:var(--shadow)}
+.quote-box .q-src{font-style:normal;font-size:.78rem;color:var(--gray-500);
+  margin-top:.4rem;font-weight:700}
+
+.tbl-wrap{overflow-x:auto;margin:1rem 0}
+.tbl{width:100%;border-collapse:collapse;background:#fff;border-radius:var(--radius);
+  overflow:hidden;box-shadow:var(--shadow);font-size:.88rem}
+.tbl th{background:var(--cyan);color:#fff;padding:.6rem .9rem;text-align:left;font-weight:700}
+.tbl td{padding:.6rem .9rem;border-bottom:1px solid var(--gray-200)}
+.tbl tr:last-child td{border-bottom:none}
+.tbl tr:nth-child(even) td{background:var(--cyan-ll)}
+
+.flow{display:flex;flex-wrap:wrap;gap:.6rem;margin:1rem 0;align-items:center}
+.flow-box{background:#fff;border:2px solid var(--cyan-l);border-radius:var(--radius);
+  padding:.7rem 1rem;font-weight:700;font-size:.88rem;text-align:center;
+  min-width:120px;box-shadow:var(--shadow);flex:1}
+.flow-box .fb-icon{font-size:1.4rem;display:block;margin-bottom:.25rem}
+.flow-arrow{font-size:1.5rem;color:var(--cyan);font-weight:900}
+
+.person-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:1rem;margin:1rem 0}
+.person-card{background:#fff;border-radius:var(--radius);border-top:4px solid var(--cyan);
+  padding:1rem;box-shadow:var(--shadow);cursor:pointer;transition:transform .18s,box-shadow .18s}
+.person-card:hover{transform:translateY(-3px);box-shadow:0 6px 18px rgba(14,116,144,.18)}
+.person-card .pc-icon{font-size:2.2rem;text-align:center;margin-bottom:.5rem}
+.person-card h4{font-size:.95rem;font-weight:800;color:var(--cyan-d);margin-bottom:.3rem}
+.person-card p{font-size:.82rem;color:var(--gray-700);margin:0}
+
+.eq-box{background:var(--gray-900);color:#e2e8f0;border-radius:var(--radius);
+  padding:1.1rem 1.4rem;margin:1rem 0;font-family:'Courier New',monospace}
+.eq-box .eq-main{font-size:1.3rem;color:#7dd3fc;font-weight:700;text-align:center;
+  margin-bottom:.6rem;letter-spacing:.04em}
+.eq-box .eq-desc{font-size:.8rem;line-height:1.6;color:#cbd5e1}
+.eq-box .eq-desc span{color:#fcd34d}
+
+/* ===== ミニテスト折りたたみ ===== */
+.minitest-area{margin:2rem 0 0}
+
+/* トグルボタン */
+.mt-toggle{
+  width:100%;background:linear-gradient(135deg,#0c4a6e,#0e7490);
+  border:none;border-radius:14px;padding:1rem 1.3rem;
+  color:#fff;font-weight:900;font-size:1rem;cursor:pointer;
+  display:flex;align-items:center;justify-content:space-between;gap:.5rem;
+  font-family:inherit;transition:opacity .18s;text-align:left
+}
+.mt-toggle:hover{opacity:.9}
+.mt-toggle .mt-arrow{
+  font-size:1.2rem;transition:transform .3s;display:inline-block;flex-shrink:0
+}
+.mt-toggle.open .mt-arrow{transform:rotate(180deg)}
+.mt-toggle .mt-badge{
+  background:rgba(255,255,255,.22);border-radius:20px;
+  padding:.15rem .7rem;font-size:.75rem;font-weight:700;flex-shrink:0
+}
+
+/* 折りたたみ本体 */
+.mt-body{
+  background:linear-gradient(180deg,#0b3d5c,#0e5f7a);
+  border-radius:0 0 14px 14px;padding:0 1.3rem;
+  max-height:0;overflow:hidden;
+  transition:max-height .4s cubic-bezier(.4,0,.2,1), padding .3s
+}
+.mt-body.open{max-height:3000px;padding:1.1rem 1.3rem 1.3rem}
+
+.mt-note{color:rgba(255,255,255,.75);font-size:.8rem;margin-bottom:.9rem;font-weight:400}
+
+.quiz-box{background:#fff;border-radius:var(--radius);border:2px solid var(--cyan-l);
+  padding:1.2rem;margin-bottom:.9rem;box-shadow:var(--shadow)}
+.quiz-box:last-child{margin-bottom:0}
+.quiz-box .q-label{font-size:.7rem;font-weight:800;color:var(--cyan);
+  letter-spacing:.14em;margin-bottom:.45rem}
+.quiz-box .q-text{font-size:.97rem;font-weight:700;margin-bottom:.8rem;line-height:1.6}
+.quiz-choices{display:flex;flex-direction:column;gap:.4rem}
+.quiz-choices button{text-align:left;background:var(--gray-100);border:2px solid var(--gray-200);
+  border-radius:8px;padding:.6rem .85rem;font-size:.88rem;cursor:pointer;
+  transition:all .18s;font-family:inherit;font-weight:600}
+.quiz-choices button:hover:not(:disabled){border-color:var(--cyan);background:var(--cyan-ll)}
+.quiz-choices button.correct{background:var(--green-l);border-color:var(--green);color:var(--green)}
+.quiz-choices button.wrong{background:var(--red-l);border-color:var(--red);color:var(--red)}
+.quiz-choices button:disabled{cursor:default}
+.quiz-fb{margin-top:.7rem;padding:.7rem;border-radius:8px;font-size:.88rem;
+  font-weight:600;display:none;line-height:1.55}
+.quiz-fb.show{display:block}
+.quiz-fb.ok{background:var(--green-l);color:var(--green)}
+.quiz-fb.ng{background:var(--red-l);color:var(--red)}
+
+/* progress */
+.progress-wrap{background:rgba(255,255,255,.2);border-radius:20px;height:10px;margin-bottom:1.5rem;overflow:hidden}
+.progress-bar{height:100%;border-radius:20px;background:linear-gradient(90deg,#38bdf8,#7dd3fc);
+  transition:width .4s cubic-bezier(.4,0,.2,1)}
+.progress-label{font-size:.8rem;color:var(--gray-500);margin-bottom:.3rem;
+  display:flex;justify-content:space-between}
+
+/* tags */
+.tag{display:inline-block;background:var(--cyan-l);color:var(--cyan-d);
+  border-radius:20px;padding:.15rem .65rem;font-size:.75rem;font-weight:700;margin:.1rem}
+
+/* modal */
+.modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.55);
+  z-index:200;align-items:center;justify-content:center;padding:1rem}
+.modal-overlay.open{display:flex}
+.modal-body{background:#fff;border-radius:14px;max-width:640px;width:100%;
+  max-height:90vh;overflow-y:auto;box-shadow:0 20px 60px rgba(0,0,0,.3)}
+.modal-header{background:var(--cyan);color:#fff;padding:1.2rem 1.5rem;
+  border-radius:14px 14px 0 0;display:flex;align-items:center;gap:.8rem}
+.modal-header .mh-icon{font-size:2rem}
+.modal-header h3{font-size:1.1rem;font-weight:800}
+.modal-content{padding:1.4rem 1.5rem}
+.modal-close{margin-top:1rem;background:var(--cyan);color:#fff;border:none;
+  border-radius:8px;padding:.6rem 1.4rem;font-size:.9rem;font-weight:700;
+  cursor:pointer;font-family:inherit}
+
+/* 動画埋め込み */
+.video-section{margin:1.5rem 0}
+.video-section .vs-title{font-size:.78rem;font-weight:800;color:var(--cyan);
+  letter-spacing:.12em;margin-bottom:.7rem}
+.video-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1.2rem}
+.video-card{background:#fff;border-radius:var(--radius);overflow:hidden;
+  box-shadow:var(--shadow);border:2px solid var(--cyan-l)}
+.video-card .vc-thumb{position:relative;padding-top:56.25%}
+.video-card .vc-thumb iframe{position:absolute;inset:0;width:100%;height:100%;border:none}
+.video-card .vc-info{padding:.75rem 1rem}
+.video-card .vc-label{font-size:.78rem;font-weight:800;color:var(--cyan);margin-bottom:.25rem}
+.video-card .vc-desc{font-size:.82rem;color:var(--gray-700);line-height:1.55}
+
+/* confetti */
+@keyframes fall{0%{transform:translateY(-10px) rotate(0deg);opacity:1}
+  100%{transform:translateY(100vh) rotate(720deg);opacity:0}}
+.confetti-piece{position:fixed;width:10px;height:10px;border-radius:2px;
+  animation:fall 2.5s ease-in forwards;pointer-events:none;z-index:999}
+
+/* 各問正解 小花吹雪 */
+@keyframes smallFall{
+  0%{transform:translate(0,0) rotate(0deg) scale(1);opacity:1}
+  60%{opacity:1}
+  100%{transform:translate(var(--dx),var(--dy)) rotate(540deg) scale(.3);opacity:0}
+}
+
+@media(max-width:600px){
+  .page-header h1{font-size:1.5rem}
+  .chapter h2{font-size:1.2rem}
+  .flow{flex-direction:column}
+  .flow-arrow{transform:rotate(90deg)}
+}
+</style>
+</head>
+<body>
+
+<header class="page-header">
+  <div class="badge">高認GAMBAシステム｜生物・環境</div>
+  <h1>🦠 EM菌（有用微生物群）</h1>
+  <p class="sub">発酵のちからで、土も水も暮らしも変わる</p>
+</header>
+
+<nav class="chapter-nav">
+  <a href="#ch1">① EM菌とは？</a>
+  <a href="#ch2">② 3つの主役菌</a>
+  <a href="#ch3">③ 発酵と腐敗</a>
+  <a href="#ch4">④ 農業・環境応用</a>
+  <a href="#ch5">⑤ 比嘉照夫という人</a>
+  <a href="#ch6">⑥ 科学的視点</a>
+  <a href="#ch7">⑦ コッホとコレラ論争</a>
+  <a href="#ch8">⑧ 発見の物語</a>
+  <a href="#ch9">⑨ 光合成細菌の深掘り</a>
+  <a href="#ch10">⑩ 最新研究と実用化</a>
+  <a href="#ch11">⑪ 福島原発とEM菌</a>
+  <a href="#ch12">⑫ 光合成細菌の地球史</a>
+</nav>
+
+<div class="container">
+
+<div style="margin-bottom:1.5rem">
+  <div class="progress-label">
+    <span>🎯 ミニテスト進捗</span>
+    <span id="prog-text">0 / 24 問</span>
+  </div>
+  <div class="progress-wrap"><div class="progress-bar" id="prog-bar" style="width:0%"></div></div>
+</div>
+
+<!-- ===== CH1 ===== -->
+<section class="chapter" id="ch1">
+  <div class="chapter-label">Chapter 01</div>
+  <h2>🔬 EM菌（有用微生物群）とは？</h2>
+
+  <div class="sec-body">
+    <p>「EM菌」という<strong>単一の菌は存在しません</strong>。これは<strong>俗称（ぞくしょう）</strong>です。正式には <strong>EM（Effective Microorganisms）＝有用微生物群</strong> といい、人間や環境にとって役立つ複数の微生物を一緒に培養・共生させた<strong>微生物の集合体</strong>のことです。</p>
+    <p>EM は英語の頭文字から生まれた造語です。</p>
+  </div>
+
+  <div class="eq-box">
+    <div class="eq-main">EM ＝ Effective Microorganisms</div>
+    <div class="eq-desc">
+      <span>Effective</span>：有用な（役に立つ）<br>
+      <span>Micro</span>：微小な<br>
+      <span>Organisms</span>：生物（生き物）たち<br>
+      → 合わせると「<span>役に立つ微生物たちの集まり</span>」
+    </div>
+  </div>
+
+  <div class="point">
+    <div class="pt-title">🌟 KEY POINT</div>
+    EMには乳酸菌・酵母・光合成細菌などが含まれ、<strong>互いに助け合いながら共存</strong>することで、単独よりずっと大きな力を発揮します。この「複合共生」こそEM最大の特徴です。
+  </div>
+
+  <div class="memo">自然界の微生物は「善玉菌（発酵系）」と「悪玉菌（腐敗系）」に大別できます。EMは善玉菌を集めたもので、遺伝子操作は一切していない自然由来の微生物資材です。</div>
+
+  <div class="minitest-area">
+    <button class="mt-toggle" onclick="toggleMinitest(this)" aria-expanded="false">
+      <span>📝 Chapter 01 ミニテスト</span>
+      <span class="mt-arrow">▼</span>
+    </button>
+    <div class="mt-body">
+      <div class="mt-note">ここまで読んだ内容を確認しよう。前の章の知識も組み合わせて考えてみてください。</div>
+
+    <div class="quiz-box">
+      <div class="q-label">Q 01-A</div>
+      <div class="q-text">「EM菌」について、正しい説明はどれですか？</div>
+      <div class="quiz-choices" id="q1a">
+        <button onclick="answer(this,'q1a','wrong')">① EMという名前の特殊な1種類の菌のこと</button>
+        <button onclick="answer(this,'q1a','correct')">② 複数の有用な微生物を共生させた集合体の俗称</button>
+        <button onclick="answer(this,'q1a','wrong')">③ 遺伝子操作で人工的に作られた微生物</button>
+        <button onclick="answer(this,'q1a','wrong')">④ 悪玉菌を殺す殺菌剤の一種</button>
+      </div>
+      <div class="quiz-fb" id="q1a-fb"></div>
+    </div>
+
+    <div class="quiz-box">
+      <div class="q-label">Q 01-B</div>
+      <div class="q-text">EMの英語の正式名称「Effective Microorganisms」を日本語にすると？</div>
+      <div class="quiz-choices" id="q1b">
+        <button onclick="answer(this,'q1b','wrong')">① 効果的な発酵食品</button>
+        <button onclick="answer(this,'q1b','wrong')">② 環境保護微生物群</button>
+        <button onclick="answer(this,'q1b','correct')">③ 有用微生物群（有効な微生物たちの集まり）</button>
+        <button onclick="answer(this,'q1b','wrong')">④ 特殊培養細菌液</button>
+      </div>
+      <div class="quiz-fb" id="q1b-fb"></div>
+    </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== CH2 ===== -->
+<section class="chapter" id="ch2">
+  <div class="chapter-label">Chapter 02</div>
+  <h2>🧫 EMを支える3つの主役菌</h2>
+
+  <div class="sec-body">
+    <p>EMには主に<strong>3種類</strong>の微生物が含まれています。これらは互いに連携して働き、それぞれが得意なことを担当する「チーム」を形成しています。</p>
+  </div>
+
+  <div class="person-grid">
+    <div class="person-card" onclick="openModal('modal-kosei')">
+      <div class="pc-icon">☀️</div>
+      <h4>光合成細菌</h4>
+      <p>光のエネルギーで有害物質を浄化。EMのキャプテン的存在。</p>
+      <span class="tag">中心的役割</span>
+    </div>
+    <div class="person-card" onclick="openModal('modal-nyusan')">
+      <div class="pc-icon">🥛</div>
+      <h4>乳酸菌</h4>
+      <p>糖から乳酸をつくり、悪玉菌の侵入をブロックする守護者。</p>
+      <span class="tag">抗菌・発酵</span>
+    </div>
+    <div class="person-card" onclick="openModal('modal-kobo')">
+      <div class="pc-icon">🍞</div>
+      <h4>酵母</h4>
+      <p>有機物を分解して光合成細菌のエサを準備する縁の下の力持ち。</p>
+      <span class="tag">分解・合成</span>
+    </div>
+  </div>
+  <div class="memo">カードをタップすると詳しい説明が見られます！</div>
+
+  <div class="sec-hd">3菌の連携イメージ</div>
+  <div class="flow">
+    <div class="flow-box"><span class="fb-icon">🍞</span>酵母<br><small>有機物を分解</small></div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-box"><span class="fb-icon">🥛</span>乳酸菌<br><small>糖→乳酸<br>悪玉菌を撃退</small></div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-box"><span class="fb-icon">☀️</span>光合成細菌<br><small>有害物質を浄化<br>土壌・水を改善</small></div>
+  </div>
+
+  <div class="tbl-wrap">
+    <table class="tbl">
+      <tr><th>微生物</th><th>主なエサ</th><th>生み出すもの</th><th>身近な例</th></tr>
+      <tr><td>乳酸菌</td><td>糖類</td><td>乳酸（強い抗菌力）</td><td>ヨーグルト・味噌・漬物</td></tr>
+      <tr><td>酵母</td><td>有機物（糖）</td><td>アルコール・有機酸</td><td>パン・ビール・酒</td></tr>
+      <tr><td>光合成細菌</td><td>光＋有害物質</td><td>有用な有機物・アミノ酸</td><td>水田の泥の中など</td></tr>
+    </table>
+  </div>
+
+  <div class="minitest-area">
+    <button class="mt-toggle" onclick="toggleMinitest(this)" aria-expanded="false">
+      <span>📝 Chapter 02 ミニテスト</span>
+      <span class="mt-arrow">▼</span>
+    </button>
+    <div class="mt-body">
+      <div class="mt-note">Ch.01の内容も合わせて問います。</div>
+
+    <div class="quiz-box">
+      <div class="q-label">Q 02-A</div>
+      <div class="q-text">EMの「キャプテン」的な中心役割を担うのはどの微生物ですか？</div>
+      <div class="quiz-choices" id="q2a">
+        <button onclick="answer(this,'q2a','wrong')">① 乳酸菌</button>
+        <button onclick="answer(this,'q2a','wrong')">② 酵母</button>
+        <button onclick="answer(this,'q2a','correct')">③ 光合成細菌</button>
+        <button onclick="answer(this,'q2a','wrong')">④ 大腸菌</button>
+      </div>
+      <div class="quiz-fb" id="q2a-fb"></div>
+    </div>
+
+    <div class="quiz-box">
+      <div class="q-label">Q 02-B</div>
+      <div class="q-text">Ch.01で学んだ内容と合わせて考えてください。<br>「EMは複合共生の微生物だ」という意味として最も正しいのはどれですか？</div>
+      <div class="quiz-choices" id="q2b">
+        <button onclick="answer(this,'q2b','wrong')">① 一種類の強力な菌が他の菌を支配している</button>
+        <button onclick="answer(this,'q2b','correct')">② 乳酸菌・酵母・光合成細菌などが互いに助け合い、単独より大きな力を出す</button>
+        <button onclick="answer(this,'q2b','wrong')">③ 遺伝子を組み替えて複数の能力を持つ人工菌をつくった</button>
+        <button onclick="answer(this,'q2b','wrong')">④ 多くの菌を混ぜるほど効果が高くなる</button>
+      </div>
+      <div class="quiz-fb" id="q2b-fb"></div>
+    </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== CH3 ===== -->
+<section class="chapter" id="ch3">
+  <div class="chapter-label">Chapter 03</div>
+  <h2>⚗️ 発酵（はっこう）と腐敗（ふはい）のちがい</h2>
+
+  <div class="sec-body">
+    <p>実は「発酵」と「腐敗」は、<strong>どちらも微生物が有機物を分解する現象</strong>です。ちがいは<strong>人間にとって役立つかどうか</strong>という視点からつけた名前にすぎません。</p>
+  </div>
+
+  <div class="tbl-wrap">
+    <table class="tbl">
+      <tr><th></th><th>発酵（はっこう）</th><th>腐敗（ふはい）</th></tr>
+      <tr><td><strong>現象</strong></td><td>微生物が有機物を分解</td><td>微生物が有機物を分解</td></tr>
+      <tr><td><strong>人への影響</strong></td><td>✅ 有用（役立つ）</td><td>❌ 有害（くさる・臭い）</td></tr>
+      <tr><td><strong>例</strong></td><td>味噌・醤油・ヨーグルト・お酒</td><td>食べ物の腐り・悪臭</td></tr>
+      <tr><td><strong>主役菌</strong></td><td>善玉菌（乳酸菌・酵母など）</td><td>悪玉菌（腐敗菌）</td></tr>
+    </table>
+  </div>
+
+  <div class="point">
+    <div class="pt-title">💡 大切なポイント</div>
+    EMは「悪玉菌を殺す」のではなく、<strong>「善玉菌が優勢な環境をつくる」</strong>ことで腐敗から発酵へと方向を変えます。殺菌剤とは根本的に異なります。
+  </div>
+
+  <div class="sec-hd">化学反応で見る乳酸発酵</div>
+  <div class="eq-box">
+    <div class="eq-main">C₆H₁₂O₆ → 2 CH₃CHOHCOOH</div>
+    <div class="eq-desc">
+      <span>C₆H₁₂O₆</span>：ブドウ糖（グルコース）<br>
+      <span>CH₃CHOHCOOH</span>：乳酸（lactic acid）<br>
+      → 乳酸菌が糖を分解し、乳酸をつくり出す<br>
+      乳酸は酸性のため、悪玉菌が嫌いな環境がつくられる
+    </div>
+  </div>
+
+  <div class="minitest-area">
+    <button class="mt-toggle" onclick="toggleMinitest(this)" aria-expanded="false">
+      <span>📝 Chapter 03 ミニテスト</span>
+      <span class="mt-arrow">▼</span>
+    </button>
+    <div class="mt-body">
+      <div class="mt-note">Ch.01〜02の知識もつなげて考えよう。</div>
+
+    <div class="quiz-box">
+      <div class="q-label">Q 03-A</div>
+      <div class="q-text">「発酵」と「腐敗」の最も本質的なちがいは何ですか？</div>
+      <div class="quiz-choices" id="q3a">
+        <button onclick="answer(this,'q3a','wrong')">① 発酵は微生物が関係するが、腐敗は関係しない</button>
+        <button onclick="answer(this,'q3a','correct')">② どちらも微生物の分解だが、人間にとって有用かどうかで呼び方が変わる</button>
+        <button onclick="answer(this,'q3a','wrong')">③ 発酵は高温で起き、腐敗は低温で起きる</button>
+        <button onclick="answer(this,'q3a','wrong')">④ 発酵は酸素があるときに起き、腐敗は酸素がないときに起きる</button>
+      </div>
+      <div class="quiz-fb" id="q3a-fb"></div>
+    </div>
+
+    <div class="quiz-box">
+      <div class="q-label">Q 03-B</div>
+      <div class="q-text">Ch.02で学んだ「乳酸菌」の役割と、今章の「発酵」の知識を合わせると、乳酸菌はなぜ悪玉菌を抑えられるのですか？</div>
+      <div class="quiz-choices" id="q3b">
+        <button onclick="answer(this,'q3b','wrong')">① 乳酸菌が直接悪玉菌を食べてしまうから</button>
+        <button onclick="answer(this,'q3b','wrong')">② 乳酸菌は温度を下げるので、悪玉菌が育てなくなるから</button>
+        <button onclick="answer(this,'q3b','correct')">③ 乳酸菌がつくる乳酸によって酸性環境ができ、悪玉菌が住みにくくなるから</button>
+        <button onclick="answer(this,'q3b','wrong')">④ 乳酸菌が光を使って悪玉菌を分解するから</button>
+      </div>
+      <div class="quiz-fb" id="q3b-fb"></div>
+    </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== CH4 ===== -->
+<section class="chapter" id="ch4">
+  <div class="chapter-label">Chapter 04</div>
+  <h2>🌱 農業・環境への応用</h2>
+
+  <div class="sec-body">
+    <p>EMは農業・畜産・水質浄化・生ゴミ処理など、さまざまな分野で活用されています。現在では<strong>世界130カ国以上</strong>で使われています。</p>
+  </div>
+
+  <div class="sec-hd">🌾 農業への活用 ― EMボカシ</div>
+  <div class="sec-body">
+    <p>EMを農業で使う中心的な資材が<strong>EMボカシ</strong>です。米ぬかなどの有機物をEMで発酵させたもので、土に混ぜることで善玉菌が増え、植物の根が育ちやすい環境が整います。</p>
+  </div>
+
+  <div class="flow">
+    <div class="flow-box"><span class="fb-icon">🌾</span>米ぬか・有機物</div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-box"><span class="fb-icon">🦠</span>EMで発酵<br><small>嫌気状態・2〜4週間</small></div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-box"><span class="fb-icon">💪</span>EMボカシ完成</div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-box"><span class="fb-icon">🌱</span>土壌改良<br><small>作物が元気に育つ</small></div>
+  </div>
+
+  <div class="tbl-wrap">
+    <table class="tbl">
+      <tr><th>活用分野</th><th>主な方法</th><th>期待される効果</th></tr>
+      <tr><td>農業</td><td>EMボカシ・EM活性液の土壌散布</td><td>土壌改良・病気の抑制・増収</td></tr>
+      <tr><td>生ゴミ処理</td><td>生ゴミ＋EMボカシで発酵</td><td>ゴミ減量・良質な堆肥化</td></tr>
+      <tr><td>水質浄化</td><td>EM団子・EM活性液を水辺に投入</td><td>悪臭除去・水の透明度改善</td></tr>
+      <tr><td>畜産</td><td>飼料・飼育環境へのEM散布</td><td>悪臭軽減・家畜の健康改善</td></tr>
+      <tr><td>家庭</td><td>米のとぎ汁EM発酵液で掃除</td><td>排水管の浄化・悪臭軽減</td></tr>
+    </table>
+  </div>
+
+  <div class="minitest-area">
+    <button class="mt-toggle" onclick="toggleMinitest(this)" aria-expanded="false">
+      <span>📝 Chapter 04 ミニテスト</span>
+      <span class="mt-arrow">▼</span>
+    </button>
+    <div class="mt-body">
+      <div class="mt-note">Ch.01〜03の流れを思い出しながら解こう。</div>
+
+    <div class="quiz-box">
+      <div class="q-label">Q 04-A</div>
+      <div class="q-text">「EMボカシ」とは何ですか？</div>
+      <div class="quiz-choices" id="q4a">
+        <button onclick="answer(this,'q4a','wrong')">① 化学農薬の一種</button>
+        <button onclick="answer(this,'q4a','wrong')">② EMを溶かした液体肥料</button>
+        <button onclick="answer(this,'q4a','correct')">③ 米ぬかなどをEMで発酵させた土壌改良資材</button>
+        <button onclick="answer(this,'q4a','wrong')">④ EMを凍らせた保存食品</button>
+      </div>
+      <div class="quiz-fb" id="q4a-fb"></div>
+    </div>
+
+    <div class="quiz-box">
+      <div class="q-label">Q 04-B</div>
+      <div class="q-text">Ch.03で学んだ「発酵と腐敗」の知識を使って考えてください。<br>生ゴミにEMボカシを混ぜると何が起きますか？</div>
+      <div class="quiz-choices" id="q4b">
+        <button onclick="answer(this,'q4b','wrong')">① 生ゴミがただ乾燥して体積が減る</button>
+        <button onclick="answer(this,'q4b','correct')">② 腐敗ではなく発酵が起き、栄養豊富な堆肥になる</button>
+        <button onclick="answer(this,'q4b','wrong')">③ 生ゴミが高温で焼却される</button>
+        <button onclick="answer(this,'q4b','wrong')">④ 悪玉菌が増えてさらに腐敗が進む</button>
+      </div>
+      <div class="quiz-fb" id="q4b-fb"></div>
+    </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== CH5 ===== -->
+<section class="chapter" id="ch5">
+  <div class="chapter-label">Chapter 05</div>
+  <h2>🌺 比嘉照夫という人 ― 沖縄から世界へ</h2>
+
+  <div class="sec-body">
+    <p>EMを生んだのは一人の人間です。<strong>比嘉照夫（ひが てるお）</strong>。1941年、沖縄県に生まれたこの農学者の歩みを知ることで、EMがどんな思いから生まれたのかが見えてきます。</p>
+  </div>
+
+  <div class="person-grid">
+    <div class="person-card" onclick="openModal('modal-higa')" style="grid-column:1/-1">
+      <div class="pc-icon">🧑‍🏫</div>
+      <h4>比嘉 照夫（ひが てるお）</h4>
+      <p>1941年、沖縄県生まれ。琉球大学農学部名誉教授・農学博士。「EM技術」の生みの親。2022年、瑞宝中綬章受章。</p>
+      <span class="tag">タップして詳細ページへ</span>
+    </div>
+  </div>
+
+  <div class="sec-hd">🌊 生い立ち ― 沖縄という土地</div>
+  <div class="sec-body">
+    <p>比嘉照夫は1941年12月、日本が太平洋戦争に突入した年に沖縄県で生まれました。幼少期は戦後の沖縄で過ごします。戦後沖縄は本土から切り離されアメリカの統治下に置かれ、貧困と混乱の中にありました。しかし同時に、沖縄には<strong>豊かな自然と発酵文化</strong>がありました。泡盛・島豆腐・海ぶどう・豆腐よう……微生物が人々の暮らしを支えていた土地です。</p>
+    <p>その土地で育った少年が、後に「微生物が地球を救う」という信念を持つようになるのは、偶然ではなかったかもしれません。</p>
+  </div>
+
+  <div class="story-box">
+    <div class="st-title">📖 沖縄の発酵文化</div>
+    <p>沖縄は日本屈指の発酵文化の地です。泡盛（米と黒麹菌による蒸留酒）・豆腐よう（島豆腐を麹・塩・泡盛で熟成）・スクガラス（小魚の塩辛）……これらはすべて微生物の働きによって生まれます。比嘉氏が育った環境には、微生物と人間が共存する知恵がごく自然に息づいていました。</p>
+  </div>
+
+  <div class="sec-hd">📚 研究者への道 ― ミカンとの出会い</div>
+  <div class="sec-body">
+    <p>琉球大学農学部を卒業後、九州大学大学院農学研究科の博士課程へ進んだ比嘉氏。ここでの研究テーマが<strong>ミカンの品質改善</strong>でした。農薬・ホルモン・有機肥料・化学肥料……あらゆる手段でミカンを良くしようとしていたとき、ある疑問に突き当たります。</p>
+    <p>「同じ農薬を使っても、育ちのいい畑とそうでない畑がある。その差はどこから来るのか？」</p>
+    <p>調べていくうち、答えは土の中にいる<strong>微生物の違い</strong>にあることがわかってきました。1968年頃のことです。その気づきが、EMへの長い旅の出発点となりました。</p>
+  </div>
+
+  <div class="sec-hd">💡 EMの着想 ― 20年の格闘</div>
+  <div class="sec-body">
+    <p>微生物の可能性を確信した比嘉氏は、1970年から琉球大学に戻り、講師として研究を続けます。「有害な菌を殺すのではなく、有益な菌が優勢になる環境をつくれないか」。この発想は当時の科学界では異端でした。</p>
+    <p>「農薬を使わずに農業ができるわけがない」「微生物の混合培養は不安定で使えない」――そんな批判や壁にぶつかりながら、比嘉氏はひたすら研究を続けました。気づけば<strong>20年近い歳月</strong>が流れていました。</p>
+    <p>そして1982年、ついに乳酸菌・酵母・光合成細菌が安定して共存する培養に成功し、EMと名付けました。</p>
+  </div>
+
+  <div class="quote-box">
+    「土が生きていれば、作物は育つ。微生物が豊かであれば、土は生きる。答えはそんなシンプルなことだった。」
+    <div class="q-src">― 比嘉照夫氏の著作・講演より（要旨）</div>
+  </div>
+
+  <div class="sec-hd">🌏 世界へ ― 「地球を救う」という信念</div>
+  <div class="sec-body">
+    <p>1982年のEM開発から、比嘉氏は1年の半分を世界各地での技術指導に費やすようになります。タイ・ブラジル・コスタリカ・セルビア……農業だけでなく、水質浄化・建築・医療・教育にまでEM技術は広がっていきました。</p>
+    <p>「微生物は地球を救える」という信念は、時に批判を受けながらも揺るがなかった。その情熱の根には、戦後沖縄の貧しさと、沖縄の自然・文化への深い愛があったのではないかと言われています。</p>
+  </div>
+
+  <div class="tbl-wrap">
+    <table class="tbl">
+      <tr><th>年</th><th>比嘉照夫の歩み</th></tr>
+      <tr><td>1941年</td><td>沖縄県に生まれる（太平洋戦争勃発の年）</td></tr>
+      <tr><td>〜1960年代</td><td>戦後沖縄で育つ。沖縄はアメリカ統治下</td></tr>
+      <tr><td>1968年頃</td><td>九州大学でミカン研究中に微生物の可能性に気づく</td></tr>
+      <tr><td>1970年</td><td>琉球大学に講師として着任、研究を本格化</td></tr>
+      <tr><td>1982年</td><td>EM（有用微生物群）を開発・命名</td></tr>
+      <tr><td>1991年</td><td>著書「微生物の農業利用と環境保全」（農文協）刊行</td></tr>
+      <tr><td>1993年</td><td>「地球を救う大変革」（サンマーク出版）刊行、ベストセラーに</td></tr>
+      <tr><td>1990年代〜</td><td>世界90カ国以上へ普及・指導旅行を続ける</td></tr>
+      <tr><td>2000年代〜</td><td>現在130カ国以上でEM技術が活用される</td></tr>
+      <tr><td>2022年</td><td>瑞宝中綬章（国家勲章）を受章</td></tr>
+    </table>
+  </div>
+
+  <div class="point">
+    <div class="pt-title">🌟 他者に伝えるために知っておきたいこと</div>
+    比嘉照夫氏の業績は単に「微生物資材を開発した」だけではありません。「農薬に頼らない農業」「生命の循環を尊重する環境観」「発展途上国の農業支援」……それらを一人の沖縄の農学者が生涯をかけて追い続けた、という物語です。EM菌を誰かに説明するとき、この背景を伝えると理解が深まります。
+  </div>
+
+  <div class="video-section">
+    <div class="vs-title">🎬 関連動画で深める</div>
+    <div class="video-grid">
+      <div class="video-card">
+        <div class="vc-thumb">
+          <iframe src="https://www.youtube.com/embed/M4Q5w-J_QNU?list=PLIzAvzkQopUiDWeceY0lpTlHMBdpwKXSK"
+            title="比嘉照夫氏 講演・EM関連動画"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen loading="lazy"></iframe>
+        </div>
+        <div class="vc-info">
+          <div class="vc-label">📺 比嘉照夫氏 講演シリーズ</div>
+          <div class="vc-desc">EM開発者・比嘉照夫氏自身の言葉でEM菌の思想と実践を語る講演プレイリスト。テキストで学んだ内容を「声と言葉」でさらに深めよう。</div>
+        </div>
+      </div>
+      <div class="video-card">
+        <div class="vc-thumb">
+          <iframe src="https://www.youtube.com/embed/CruQUKojLMY"
+            title="映画「蘇生II ～愛と微生物～」予告編"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen loading="lazy"></iframe>
+        </div>
+        <div class="vc-info">
+          <div class="vc-label">📽️ 映画「蘇生II ～愛と微生物～」予告編</div>
+          <div class="vc-desc">比嘉照夫氏が出演するEM菌のドキュメンタリー映画の予告編。テキストで学んだ知識が「映像と物語」でさらに深まる。EM菌が世界でどう使われているかを体感しよう。</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="minitest-area">
+    <button class="mt-toggle" onclick="toggleMinitest(this)" aria-expanded="false">
+      <span>📝 Chapter 05 ミニテスト</span>
+      <span class="mt-arrow">▼</span>
+    </button>
+    <div class="mt-body">
+      <div class="mt-note">比嘉照夫先生の生涯と、これまでの章の知識をつなげて答えよう。</div>
+
+    <div class="quiz-box">
+      <div class="q-label">Q 05-A</div>
+      <div class="q-text">比嘉照夫氏がEM開発のきっかけとなる「微生物の可能性」に気づいたのは、どんな研究をしていたときでしたか？</div>
+      <div class="quiz-choices" id="q5a">
+        <button onclick="answer(this,'q5a','wrong')">① 沖縄の泡盛の製造工程を研究していたとき</button>
+        <button onclick="answer(this,'q5a','correct')">② 九州大学でミカンの品質改善を研究していたとき</button>
+        <button onclick="answer(this,'q5a','wrong')">③ 戦後沖縄の水質浄化プロジェクトに携わっていたとき</button>
+        <button onclick="answer(this,'q5a','wrong')">④ コレラ菌の研究をしていたとき</button>
+      </div>
+      <div class="quiz-fb" id="q5a-fb"></div>
+    </div>
+
+    <div class="quiz-box">
+      <div class="q-label">Q 05-B</div>
+      <div class="q-text">Ch.01〜04の流れを振り返ってください。比嘉氏がEM開発で目指したことは、次のどれですか？</div>
+      <div class="quiz-choices" id="q5b">
+        <button onclick="answer(this,'q5b','wrong')">① 強力な殺菌剤をつくって害虫を根絶すること</button>
+        <button onclick="answer(this,'q5b','wrong')">② 新しい遺伝子組換え作物を開発すること</button>
+        <button onclick="answer(this,'q5b','correct')">③ 有益な微生物が優勢な環境をつくり、農薬に頼らない農業を実現すること</button>
+        <button onclick="answer(this,'q5b','wrong')">④ 化学肥料を大量生産して農業の効率化を図ること</button>
+      </div>
+      <div class="quiz-fb" id="q5b-fb"></div>
+    </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== CH6 ===== -->
+<section class="chapter" id="ch6">
+  <div class="chapter-label">Chapter 06</div>
+  <h2>🔭 科学的な視点から考える</h2>
+
+  <div class="sec-body">
+    <p>EMは農業や環境分野で広く実践されていますが、科学的な研究者の間では<strong>評価がわかれる部分</strong>もあります。正しく理解するために、両面を見てみましょう。</p>
+  </div>
+
+  <div class="tbl-wrap">
+    <table class="tbl">
+      <tr><th>肯定的な評価</th><th>批判的な指摘</th></tr>
+      <tr><td>✅ 農業・農地改良での実績が世界各地に多数ある</td><td>⚠️ 効果の科学的証明が十分でないものがある</td></tr>
+      <tr><td>✅ 乳酸菌・酵母・光合成細菌の個別の有用性は確認されている</td><td>⚠️ 「放射能除去」など過大な主張が一部にある</td></tr>
+      <tr><td>✅ 安全性（飲食品微生物由来）は確認されている</td><td>⚠️ 環境散布時の生態系への影響は要注意</td></tr>
+      <tr><td>✅ 世界130カ国以上で活用されている実績がある</td><td>⚠️ 科学的対照実験の数が少ない分野もある</td></tr>
+    </table>
+  </div>
+
+  <div class="warn">「○○に効く」という情報を見たとき、「どんな実験で確かめられたのか？」「信頼できる機関が認めているか？」を確認する<strong>科学的な目</strong>をもつことが大切です。EMだけでなく、あらゆる情報に対して同じ姿勢を持ちましょう。</div>
+
+  <div class="point">
+    <div class="pt-title">📚 高認に出る重要ポイント</div>
+    ①「発酵と腐敗は微生物による分解という点で同じ現象」<br>
+    ②「微生物には好気性（酸素あり）と嫌気性（酸素なし）がある」<br>
+    ③「生物の多様性と共生関係」→EMはその応用例<br>
+    ④「科学的思考（仮説→実験→検証）」の大切さ
+  </div>
+
+  <div class="minitest-area">
+    <button class="mt-toggle" onclick="toggleMinitest(this)" aria-expanded="false">
+      <span>📝 Chapter 06 ミニテスト</span>
+      <span class="mt-arrow">▼</span>
+    </button>
+    <div class="mt-body">
+      <div class="mt-note">Ch.05（比嘉照夫）で学んだ「信念と科学」のテーマも絡めて答えよう。</div>
+
+    <div class="quiz-box">
+      <div class="q-label">Q 06-A</div>
+      <div class="q-text">EMに関する次の説明のうち、<strong>正しくない</strong>ものはどれですか？</div>
+      <div class="quiz-choices" id="q6a">
+        <button onclick="answer(this,'q6a','wrong')">① EMは複数の微生物を複合共生させた資材である</button>
+        <button onclick="answer(this,'q6a','wrong')">② EMに含まれる乳酸菌・酵母などは食品でも使われる安全な菌である</button>
+        <button onclick="answer(this,'q6a','correct')">③ EMにはすべての病気や環境問題を確実に解決する科学的証明がある</button>
+        <button onclick="answer(this,'q6a','wrong')">④ EMは農業・水質浄化・生ゴミ処理などに活用されている</button>
+      </div>
+      <div class="quiz-fb" id="q6a-fb"></div>
+    </div>
+
+    <div class="quiz-box">
+      <div class="q-label">Q 06-B</div>
+      <div class="q-text">Ch.05で比嘉照夫氏が長年批判を受けながら研究を続けた姿勢と、科学的思考の関係について、正しいのはどれですか？</div>
+      <div class="quiz-choices" id="q6b">
+        <button onclick="answer(this,'q6b','wrong')">① 批判があっても自分の信念を曲げないのが科学者の正しい姿勢</button>
+        <button onclick="answer(this,'q6b','correct')">② 信念を持ちながらも実験・検証を繰り返し、証拠を積み上げることが科学的な探究だ</button>
+        <button onclick="answer(this,'q6b','wrong')">③ 科学的証明がなくても、多くの人が使っていれば正しいと判断できる</button>
+        <button onclick="answer(this,'q6b','wrong')">④ 開発者本人が正しいと言えば、それが科学的証明になる</button>
+      </div>
+      <div class="quiz-fb" id="q6b-fb"></div>
+    </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== CH7 ===== -->
+<section class="chapter" id="ch7">
+  <div class="chapter-label">Chapter 07</div>
+  <h2>🔬 コッホとコレラ菌論争 ― 微生物学史上最大のドラマ</h2>
+
+  <div class="sec-body">
+    <p>EM菌の「微生物が環境を変える」という発想の背景には、19世紀ヨーロッパで起きた<strong>微生物をめぐる大論争</strong>があります。「科学とは何か」「証拠と信念のぶつかり合い」という深いテーマが見えてきます。</p>
+  </div>
+
+  <div class="sec-hd">👤 登場人物</div>
+  <div class="person-grid">
+    <div class="person-card" onclick="openModal('modal-koch')">
+      <div class="pc-icon">🧫</div>
+      <h4>ロベルト・コッホ</h4>
+      <p>1843〜1910。ドイツの細菌学者。炭疽菌・結核菌・コレラ菌を発見。1905年ノーベル生理学・医学賞受賞。</p>
+      <span class="tag">細菌学の父</span>
+    </div>
+    <div class="person-card" onclick="openModal('modal-petten')">
+      <div class="pc-icon">🏛️</div>
+      <h4>マックス・フォン・ペッテンコーファー</h4>
+      <p>1818〜1901。ドイツの衛生学者・化学者。「コレラは環境が原因」と主張。近代衛生学・下水道整備の父。</p>
+      <span class="tag">近代衛生学の父</span>
+    </div>
+  </div>
+  <div class="memo">カードをタップすると詳しいプロフィールが見られます！</div>
+
+  <div class="sec-hd">📜 論争の経緯</div>
+  <div class="tbl-wrap">
+    <table class="tbl">
+      <tr><th>年</th><th>できごと</th></tr>
+      <tr><td>1854年</td><td>パチーニ医師がコレラ菌を発見（→当時は注目されず）</td></tr>
+      <tr><td>1876年</td><td>コッホが炭疽菌の純粋培養に成功→「細菌＝病原体」説が始まる</td></tr>
+      <tr><td>1882年</td><td>コッホが結核菌を発見・証明</td></tr>
+      <tr><td>1883年</td><td>コッホがコレラ菌を発見→「コレラの原因はコレラ菌だ！」と主張<br>ペッテンコーファーが猛反論→「菌だけでは発症しない。土壌・環境条件が必要だ！」</td></tr>
+      <tr><td>1892年</td><td>ハンブルクでコレラ大流行（死者8,500人超）→上水道の有無で差が明確に</td></tr>
+      <tr><td>1892年10月7日</td><td><strong>ペッテンコーファー、コレラ菌10億個を自ら飲む！</strong>→軽い下痢のみでコレラ未発症</td></tr>
+      <tr><td>1901年</td><td>ペッテンコーファー、うつ病を発症しピストル自殺。享年83歳。</td></tr>
+      <tr><td>現在</td><td>コレラ菌O1型・O139型が原因と確定。ただし免疫・感染量・健康状態も発症に関わると判明</td></tr>
+    </table>
+  </div>
+
+  <div class="sec-hd">💥 伝説の自飲実験</div>
+  <div class="sec-body">
+    <p>ペッテンコーファーは多くの人々の前で、コッホの弟子が培養したコレラ菌の入ったブイヨンを<strong>自ら飲み干す</strong>実験を行いました。「菌だけではコレラにかからない」という自説を命がけで証明しようとしたのです。</p>
+    <p>菌の量は<strong>推定10億個</strong>。さらに実験前に重曹水を飲んで胃酸を中和するという周到な準備まで行いました。結果は下痢のみでコレラ未発症。彼は「やはり菌だけでは発症しない！」とさらに確信を深めました。</p>
+  </div>
+
+  <div class="warn">弟子のエメリッヒは同様の自飲実験でコレラの重症状態（危篤寸前）に陥り、九死に一生を得ました。同じ実験でも結果がまちまちとなり、論争はさらに複雑化しました。</div>
+
+  <div class="point">
+    <div class="pt-title">🌟 EMへの接続</div>
+    コッホが「菌という単一の原因」を重視したのに対し、ペッテンコーファーは「菌＋環境の複合要因」を重視しました。「土壌や水の<strong>環境（微生物相）全体を整える</strong>」というEMの哲学は、"環境医学の父"の洞察と深くつながっています。
+  </div>
+
+  <div class="sec-hd">👨‍💼 日本との意外な接点</div>
+  <div class="sec-body">
+    <p>ペッテンコーファーは<strong>森鷗外（もりおうがい）</strong>の師でもありました。鷗外（本名：森林太郎）はドイツ留学中に師事し、帰国後に日本の近代衛生学を確立しました。鷗外の孫の名前「真樟（まくす）」はペッテンコーファーの名「マックス」にちなんでいます。自飲実験の目撃者には日本人の<strong>坪井次郎</strong>（後の京大総長）もいました。</p>
+  </div>
+
+  <div class="minitest-area">
+    <button class="mt-toggle" onclick="toggleMinitest(this)" aria-expanded="false">
+      <span>📝 Chapter 07 ミニテスト</span>
+      <span class="mt-arrow">▼</span>
+    </button>
+    <div class="mt-body">
+      <div class="mt-note">Ch.05〜06（比嘉照夫・科学的視点）と組み合わせて考えよう。</div>
+
+    <div class="quiz-box">
+      <div class="q-label">Q 07-A</div>
+      <div class="q-text">ペッテンコーファーがコレラ菌を自ら飲んだ最大の目的は何ですか？</div>
+      <div class="quiz-choices" id="q7a">
+        <button onclick="answer(this,'q7a','wrong')">① コレラの治療薬を体内で開発するため</button>
+        <button onclick="answer(this,'q7a','wrong')">② コレラに感染して免疫をつけるため</button>
+        <button onclick="answer(this,'q7a','correct')">③ 「菌だけではコレラは発症しない」という自説を実証するため</button>
+        <button onclick="answer(this,'q7a','wrong')">④ コッホのコレラ菌の安全性を確かめるため</button>
+      </div>
+      <div class="quiz-fb" id="q7a-fb"></div>
+    </div>
+
+    <div class="quiz-box">
+      <div class="q-label">Q 07-B</div>
+      <div class="q-text">Ch.05の比嘉照夫・Ch.06の科学的視点・Ch.07のコッホ論争を合わせて考えてください。<br>コッホとペッテンコーファーの論争について、現代の科学から見た最も正確な評価はどれですか？</div>
+      <div class="quiz-choices" id="q7b">
+        <button onclick="answer(this,'q7b','wrong')">① コッホが完全に正しく、ペッテンコーファーは完全に間違っていた</button>
+        <button onclick="answer(this,'q7b','wrong')">② ペッテンコーファーが完全に正しく、コッホは完全に間違っていた</button>
+        <button onclick="answer(this,'q7b','correct')">③ コッホの「菌原因説」もペッテンコーファーの「環境要因説」も、それぞれ一部正しかった</button>
+        <button onclick="answer(this,'q7b','wrong')">④ どちらも完全に間違っており、コレラの原因はいまだに不明だ</button>
+      </div>
+      <div class="quiz-fb" id="q7b-fb"></div>
+    </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== CH8 ===== -->
+<section class="chapter" id="ch8">
+  <div class="chapter-label">Chapter 08</div>
+  <h2>💡 発見の物語 ― バケツの奇跡から世界へ</h2>
+
+  <div class="sec-body">
+    <p>偉大な発明には、偶然と情熱の交差点がある。EMもそうでした。比嘉照夫氏がEMにたどり着いた物語は、農薬中毒による挫折から始まっています。</p>
+  </div>
+
+  <div class="sec-hd">🌿 農薬中毒からの挫折と転換</div>
+  <div class="story-box">
+    <div class="st-title">📖 エピソード① 農薬中毒になった日</div>
+    <p>比嘉青年は「近代農業で沖縄農業を豊かにしたい」という夢を持っていました。農薬・化学肥料・ホルモン剤……当時の最先端技術をすべて試しながら研究した結果、自分が農薬中毒になってしまいました。「農業を助けるつもりが、農業に壊された」という体験は彼を根本から揺さぶりました。そして農薬とは真逆の方向、つまり<strong>微生物の世界</strong>へと向かうことになります。</p>
+  </div>
+
+  <div class="sec-hd">🪣 バケツの奇跡 ― EMの原点</div>
+  <div class="story-box">
+    <div class="st-title">📖 エピソード② 草むらだけが育った</div>
+    <p>琉球大学に戻った比嘉氏は、さまざまな微生物を研究していました。毎日の実験が終わると、使った微生物をまとめて同じバケツに入れて捨てていました。どれも食品に使われるような安全な菌ばかりでした。ある日、そのバケツの中身を大学の近くの草むらにまきました。一週間後、その草むらだけが明らかに元気よく生長していたのです。「微生物の<strong>組み合わせ</strong>に何か秘密がある！」――この気づきがEMの出発点でした。</p>
+  </div>
+
+  <div class="point">
+    <div class="pt-title">🔍 科学の偶然について</div>
+    フレミングのペニシリン発見もそうですが、偉大な発見は「偶然×観察眼×情熱」から生まれます。比嘉氏がそのバケツを素通りしていたら、EMは誕生しなかったかもしれません。「なぜ草むらだけ育ったのか」と立ち止まれた感性こそが発見を生みました。
+  </div>
+
+  <div class="sec-hd">🌊 東京の川と海を救おう ― 市民ボランティアの誕生</div>
+  <div class="sec-body">
+    <p>EMが農業から環境浄化へと広がる中で、市民ボランティアによる川・海の浄化活動が全国に広まっていきました。最初のきっかけは沖縄や伊勢湾・三河湾など閉鎖性海域の浄化活動でした。</p>
+    <p>2009年、マレーシア・ペナン州で「EM国際団子投入記念日」が行われ、「環境を汚染し続けた私たちは地球に100万個のEM団子で感謝する」という活動が始まりました。この動きを受けて日本でも毎年「海の日（7月）」を中心に<strong>全国一斉EM浄化活動イベント</strong>が展開されます。</p>
+  </div>
+
+  <div class="tbl-wrap">
+    <table class="tbl">
+      <tr><th>年</th><th>全国一斉浄化活動の規模</th></tr>
+      <tr><td>2009年</td><td>マレーシアのイベントに呼応し日本でも活動開始</td></tr>
+      <tr><td>2011〜12年頃</td><td>全国47都道府県・484団体・17,416名が参加<br>EM団子：508,204個 / EM活性液：928,181ℓ投入</td></tr>
+      <tr><td>2012年</td><td>全国401団体・22,000人以上が参加<br>EM団子55万5,485個 / EM活性液62万4,888ℓ投入</td></tr>
+      <tr><td>現在</td><td>全国1,240団体以上が登録（U-net）、海外でも展開</td></tr>
+    </table>
+  </div>
+
+  <div class="sec-body">
+    <p>東京でも日本橋川への取り組みが始まりました。NPO「地球環境・共生ネットワーク（U-net）」などのボランティアが、毎週10トンのEM活性液を日本橋川に投入し続けるプロジェクトを展開。また有明海では2001年の海苔の色落ち問題をきっかけに、漁協・地域住民・学校が一体となって29万個以上のEM団子を投入し、その後海苔が豊作になったという報告があります。</p>
+  </div>
+
+  <div class="warn">EM団子の河川・海への散布効果については、科学的に実証されていない面も多くあります。環境省は客観的データを把握していないとしており、効果に懐疑的な研究者も多くいます。広大な水域では効果が限定的であること、高濃度の有機物散布が逆に汚濁源になり得るという指摘もあります。ボランティア活動の意義と科学的評価は、別々に考えることが大切です。</div>
+
+  <div class="sec-hd">📚 船井幸雄氏との関係 ― 普及の追い風</div>
+  <div class="sec-body">
+    <p><strong>船井幸雄（ふない ゆきお）氏</strong>（1933〜2014年）は「日本最高の経営コンサルタント」とも称された実業家・著述家で、自身のウェブサイト「舩井幸雄.com」に「注目の"ほんもの"EM！微生物の可能性が地球の未来を救う！！」として比嘉照夫氏のEMを熱烈に推薦しました。</p>
+    <p>船井氏は「本物」を世に広める活動を自らの使命と考えており、EMをその一つと位置づけました。両氏は共著「REBIRTH―地球再生 人間再生」も出版しており、船井氏の広大な読者層・経営者人脈を通じてEMの名前が日本中の経済界・自己啓発分野に広まっていきました。</p>
+  </div>
+
+  <div class="memo">船井幸雄氏は「時流適応」「プラス発想」などの経営理念で知られ、多くの経営者や一般読者に支持された人物です。彼がEMを「本物」と認定したことで、1990年代後半〜2000年代にEMは農業の枠を大きく超えて社会に広まりました。</div>
+
+  <div class="minitest-area">
+    <button class="mt-toggle" onclick="toggleMinitest(this)" aria-expanded="false">
+      <span>📝 Chapter 08 ミニテスト</span>
+      <span class="mt-arrow">▼</span>
+    </button>
+    <div class="mt-body">
+      <div class="mt-note">これまでの章の知識と合わせて考えよう。</div>
+    <div class="quiz-box">
+      <div class="q-label">Q 08-A</div>
+      <div class="q-text">比嘉照夫氏がEM開発の着想を得た「バケツの奇跡」とは何でしたか？</div>
+      <div class="quiz-choices" id="q8a">
+        <button onclick="answer(this,'q8a','wrong')">① バケツで菌を純粋培養することに成功したこと</button>
+        <button onclick="answer(this,'q8a','correct')">② 複数の微生物を混ぜて捨てた液をまいた草むらだけが、一週間後に元気よく育っていたこと</button>
+        <button onclick="answer(this,'q8a','wrong')">③ バケツの水が腐らずに一ヶ月以上保存できたこと</button>
+        <button onclick="answer(this,'q8a','wrong')">④ バケツ型の水槽でコレラ菌の無害化に成功したこと</button>
+      </div>
+      <div class="quiz-fb" id="q8a-fb"></div>
+    </div>
+    <div class="quiz-box">
+      <div class="q-label">Q 08-B</div>
+      <div class="q-text">Ch.06（科学的視点）の内容をふまえて考えてください。EM団子の河川への散布について正しい評価はどれですか？</div>
+      <div class="quiz-choices" id="q8b">
+        <button onclick="answer(this,'q8b','wrong')">① 全国で大規模に散布されているので、効果は科学的に完全に証明されている</button>
+        <button onclick="answer(this,'q8b','wrong')">② 効果がないと完全に否定されており、ボランティア活動自体も意味がない</button>
+        <button onclick="answer(this,'q8b','correct')">③ 効果の科学的実証は不十分な部分もあり、市民活動の意義と科学的評価を分けて考える必要がある</button>
+        <button onclick="answer(this,'q8b','wrong')">④ 川の規模に関わらず、一定量を投入すれば必ず効果が出る</button>
+      </div>
+      <div class="quiz-fb" id="q8b-fb"></div>
+    </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== CH9 ===== -->
+<section class="chapter" id="ch9">
+  <div class="chapter-label">Chapter 09</div>
+  <h2>☀️ 光合成細菌の深掘り ― 30億年の生命史</h2>
+
+  <div class="sec-body">
+    <p>EMの「キャプテン」と呼ばれる光合成細菌。この菌の存在は、地球の生命史そのものと深く結びついています。知れば知るほど、その奥深さに驚かされます。</p>
+  </div>
+
+  <div class="sec-hd">🌍 生い立ち ― 地球最古の生き物の一つ</div>
+  <div class="sec-body">
+    <p>光合成細菌が地球に誕生したのは、今から約<strong>30億年以上前</strong>と考えられています。当時の地球は酸素がほとんどなく、硫化水素やメタン、アンモニアなどの有害ガスに満ちた世界でした。光合成細菌はまさにその環境の中で生まれ、これらの有害物質をエサにして光エネルギーで生きていたのです。</p>
+    <p>その後シアノバクテリア（酸素を出す光合成細菌）が現れ、長い時間をかけて大気中に酸素が蓄積されていきました。現在の地球環境は、こうした「原始の微生物たちのはたらき」によって形成されたのです。光合成細菌は私たちの生命の大先輩とも言えます。</p>
+  </div>
+
+  <div class="point">
+    <div class="pt-title">🧬 光合成細菌の光合成は「不完全光合成」</div>
+    植物は水（H₂O）を分解して水素を得て、酸素を出します。これを「完全光合成」と呼びます。一方、光合成細菌は水の代わりに<strong>硫化水素・メタン・有機物</strong>から水素を得るため、酸素を出しません（「不完全光合成」）。だから嫌気性（酸素のない環境が得意）の菌として現在も生きています。
+  </div>
+
+  <div class="sec-hd">🔬 光合成細菌の主な特徴</div>
+  <div class="tbl-wrap">
+    <table class="tbl">
+      <tr><th>特徴</th><th>詳細</th></tr>
+      <tr><td>生息場所</td><td>水田の泥、池のヘドロ、沼など有機物が豊富で光が届く嫌気的な場所</td></tr>
+      <tr><td>色</td><td>バクテリオクロロフィルという色素を持ち、紅色〜紫がかった色をしている</td></tr>
+      <tr><td>エサ</td><td>硫化水素・メタン・アンモニアなどの有害物質、有機酸</td></tr>
+      <tr><td>つくるもの</td><td>アミノ酸・ビタミン・核酸物質（ウラシル・シトシン）・生理活性物質</td></tr>
+      <tr><td>農業への効果</td><td>日照不足時でも植物の光合成を助ける、果実の糖度・色・収量改善</td></tr>
+      <tr><td>畜産への効果</td><td>糞尿の悪臭軽減、卵のビタミン増加（2割以上）、産卵率向上</td></tr>
+    </table>
+  </div>
+
+  <div class="sec-hd">⚠️ なぜ光合成細菌は単独培養が難しいのか？</div>
+  <div class="sec-body">
+    <p>光合成細菌は農業や水質浄化に有効であることが以前から研究者に知られていましたが、<strong>単独で大量培養・安定活用するのが非常に難しい</strong>という問題がありました。</p>
+    <p>理由は光合成細菌の「繊細さ」にあります。この菌は周囲の微生物環境に強く影響を受けます。腐敗菌が多い環境では腐敗菌側に引きずられてしまい、本来の力を発揮できなくなるのです。また、光・温度・酸素濃度・エサの種類など、培養条件が少しでもずれると赤くならずに増殖しません。実際に光合成細菌の単独培養に挑戦した人が、何ヶ月経っても全く赤くならずに失敗したという体験談も多くあります。</p>
+  </div>
+
+  <div class="story-box">
+    <div class="st-title">📖 培養失敗のエピソード</div>
+    <p>北海道EM普及協会のある研究者が、光合成細菌（EM・3）を購入し、秋に培養を開始しました。外の物置の上に置き、「赤くなるかも」と毎日穴が開くほど見つめ続けましたが、1ヶ月たっても2ヶ月たっても全く赤くなりません。理由は「秋の低温で活性が落ちる」でした。光・エサ・温度の三つが揃わないと光合成細菌は増えません。翌春に再チャレンジし、専門家に何度も相談しながらようやく成功しました。</p>
+  </div>
+
+  <div class="sec-hd">🤝 乳酸菌・酵母との共生で「覚醒」する</div>
+  <div class="sec-body">
+    <p>比嘉照夫氏がEMで達成した最も重要な技術的ブレークスルーは、<strong>光合成細菌が安定して力を発揮できる共生環境をつくった</strong>ことです。</p>
+    <p>仕組みはこうです。<strong>酵母</strong>が有機物を分解して有機酸・アミノ酸をつくる → それが光合成細菌の絶好のエサになる。<strong>乳酸菌</strong>が乳酸をつくって環境を酸性（pH3.5以下）に保つ → 腐敗菌が生きられなくなり、光合成細菌が腐敗側に引きずられる心配がなくなる。この三者の役割分担が、単独では不安定だった光合成細菌を「安定的に活躍できる状態」に変えたのです。</p>
+  </div>
+
+  <div class="flow">
+    <div class="flow-box"><span class="fb-icon">🍞</span>酵母が有機物分解<br><small>→有機酸・アミノ酸を生成</small></div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-box"><span class="fb-icon">🥛</span>乳酸菌が乳酸生成<br><small>→pH3.5以下に<br>腐敗菌を排除</small></div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-box"><span class="fb-icon">☀️</span>光合成細菌が<br>安定的に活躍！<br><small>有害物質を浄化</small></div>
+  </div>
+
+  <div class="minitest-area">
+    <button class="mt-toggle" onclick="toggleMinitest(this)" aria-expanded="false">
+      <span>📝 Chapter 09 ミニテスト</span>
+      <span class="mt-arrow">▼</span>
+    </button>
+    <div class="mt-body">
+      <div class="mt-note">Ch.02（3つの主役菌）・Ch.03（発酵）の知識とつなげよう。</div>
+    <div class="quiz-box">
+      <div class="q-label">Q 09-A</div>
+      <div class="q-text">光合成細菌が単独培養しにくい主な理由はどれですか？</div>
+      <div class="quiz-choices" id="q9a">
+        <button onclick="answer(this,'q9a','wrong')">① 光合成細菌は完全な暗室でしか増殖できないから</button>
+        <button onclick="answer(this,'q9a','correct')">② 腐敗菌の多い環境では腐敗側に引きずられてしまい、光・温度・エサの条件も厳しいから</button>
+        <button onclick="answer(this,'q9a','wrong')">③ 光合成細菌は酸素が多いと爆発的に増えすぎてしまうから</button>
+        <button onclick="answer(this,'q9a','wrong')">④ 光合成細菌は地球上に現存しておらず、人工的に合成するしかないから</button>
+      </div>
+      <div class="quiz-fb" id="q9a-fb"></div>
+    </div>
+    <div class="quiz-box">
+      <div class="q-label">Q 09-B</div>
+      <div class="q-text">Ch.02・Ch.03の知識を使って答えてください。EMの中で乳酸菌が光合成細菌を守るのはなぜですか？</div>
+      <div class="quiz-choices" id="q9b">
+        <button onclick="answer(this,'q9b','wrong')">① 乳酸菌が光合成細菌の周りに物理的な膜をつくるから</button>
+        <button onclick="answer(this,'q9b','correct')">② 乳酸菌がつくる乳酸が環境を酸性にし、腐敗菌が生きられなくなるから</button>
+        <button onclick="answer(this,'q9b','wrong')">③ 乳酸菌が光合成細菌に直接栄養を注入するから</button>
+        <button onclick="answer(this,'q9b','wrong')">④ 乳酸菌が光の波長を変えて光合成細菌の光合成を助けるから</button>
+      </div>
+      <div class="quiz-fb" id="q9b-fb"></div>
+    </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== CH10 ===== -->
+<section class="chapter" id="ch10">
+  <div class="chapter-label">Chapter 10</div>
+  <h2>🚀 最新研究と実用化 ― EMは今どこへ向かっているか</h2>
+
+  <div class="sec-body">
+    <p>1982年の開発から40年以上。EMはいまも進化し続けています。世界各地での実用事例と、最新の研究動向を見てみましょう。</p>
+  </div>
+
+  <div class="sec-hd">🌍 世界の最新実用事例（2024〜2026年）</div>
+  <div class="tbl-wrap">
+    <table class="tbl">
+      <tr><th>地域・国</th><th>活用分野</th><th>内容・成果</th></tr>
+      <tr><td>コスタリカ（EARTH大学）</td><td>農業教育</td><td>EM技術が持続可能な農業としてカリキュラムに導入された</td></tr>
+      <tr><td>セルビア</td><td>酪農</td><td>乳牛の健康・乳生産量・繁殖能力の向上に成果</td></tr>
+      <tr><td>ニュージーランド</td><td>水管理</td><td>EMによる水質回復技術の研究・実用化が進む（2025年）</td></tr>
+      <tr><td>イタリア</td><td>畜産（循環型）</td><td>飼料から肥料まで循環型肉牛生産モデルにEM技術を活用（2026年）</td></tr>
+      <tr><td>ポーランド</td><td>土壌汚染対策</td><td>洪水後の石油物質で汚染された土壌へのEM活用研究（2024年）</td></tr>
+      <tr><td>ベリーズ</td><td>廃水処理</td><td>製糖工場の廃水処理にEM技術を応用（2025年）</td></tr>
+      <tr><td>チリ</td><td>養蜂</td><td>ミツバチの健康管理にEMを活用する研究（2024年）</td></tr>
+      <tr><td>ドバイ</td><td>水質浄化</td><td>リゾート地の人工湖にEM活性液・EM団子を使い、悪臭・ヘドロ・蚊の繁殖が改善</td></tr>
+      <tr><td>国連FAO</td><td>持続可能農業</td><td>EMを活用した実践事例を「持続可能な農業」として発表（2025年）</td></tr>
+    </table>
+  </div>
+
+  <div class="sec-hd">🔬 最新の研究トピック</div>
+  <div class="sec-body">
+    <p>EM研究機構の研究部は2025〜2026年にかけて、「EMと乳酸菌の関係についての詳細分析」「光合成細菌の視点から見た農業へのEM技術活用ポイント」などの研究レポートを相次いで公開しています。光合成細菌の農業応用はEM技術の中で最もアクティブな研究領域の一つです。</p>
+    <p>また沖縄の北中城村では<strong>「EMユニバーサルビレッジ」</strong>プロジェクトが進行中です。EM技術を軸に農業・健康・福祉・ICT技術（太陽光型水耕栽培施設など）を統合した、新しい形の持続可能なコミュニティをつくる取り組みです。</p>
+  </div>
+
+  <div class="sec-hd">🏠 家庭・暮らしでの具体的な使い方</div>
+  <div class="tbl-wrap">
+    <table class="tbl">
+      <tr><th>場面</th><th>方法</th><th>効果</th></tr>
+      <tr><td>生ゴミ処理</td><td>生ゴミ＋EMボカシを密閉容器で2〜4週間</td><td>悪臭なく発酵し、良質な堆肥に変わる</td></tr>
+      <tr><td>家庭菜園</td><td>米のとぎ汁EM発酵液を希釈して散布</td><td>土壌の善玉菌が増え、根が育ちやすくなる</td></tr>
+      <tr><td>排水管・トイレ</td><td>EM活性液を定期的に流す</td><td>悪臭・詰まりの原因有機物を発酵分解</td></tr>
+      <tr><td>入浴・洗濯</td><td>EM活性液を少量加える</td><td>排水の浄化、部屋干し臭の軽減</td></tr>
+      <tr><td>ペット</td><td>飼育環境・エサにEM活性液を少量</td><td>糞尿臭の軽減、腸内環境の改善</td></tr>
+      <tr><td>浴槽・お風呂場の掃除</td><td>EM活性液でそのまま拭き掃除</td><td>カビ・ヌメリの抑制</td></tr>
+    </table>
+  </div>
+
+  <div class="point">
+    <div class="pt-title">🌟 EMが示す未来の方向性</div>
+    EMが注目される背景には、現代社会が抱える三つの課題があります。①化学農薬・化学肥料への過依存による土壌劣化、②大量廃棄・生ゴミ問題、③水質汚染。EMはこの三つに対して「微生物の共生力」という一つのアプローチで取り組もうとしています。課題は残りながらも、「化学に頼りすぎない農業と環境」を目指す方向性は、現代の持続可能な社会（SDGs）の考え方とも深く共鳴しています。
+  </div>
+
+  <div class="minitest-area">
+    <button class="mt-toggle" onclick="toggleMinitest(this)" aria-expanded="false">
+      <span>📝 Chapter 10 ミニテスト ― 総合問題</span>
+      <span class="mt-arrow">▼</span>
+    </button>
+    <div class="mt-body">
+      <div class="mt-note">このモジュール全体（Ch.01〜10）の知識を総動員して答えよう！</div>
+    <div class="quiz-box">
+      <div class="q-label">Q 10-A ｜ 総合</div>
+      <div class="q-text">Ch.01〜10をすべて振り返ってください。EMが「130カ国以上で使われる技術」に成長した背景として、最も適切なものはどれですか？</div>
+      <div class="quiz-choices" id="q10a">
+        <button onclick="answer(this,'q10a','wrong')">① EMが世界中の政府に義務化された農業規格になったから</button>
+        <button onclick="answer(this,'q10a','correct')">② 農薬・化学肥料への過依存に代わる持続可能な農業・環境技術として、市民・農家・研究者の実践の積み重ねで広まったから</button>
+        <button onclick="answer(this,'q10a','wrong')">③ EMは世界最初のノーベル賞受賞農業技術だったから</button>
+        <button onclick="answer(this,'q10a','wrong')">④ EMを使うと収穫量が必ず2倍になることが世界中で証明されたから</button>
+      </div>
+      <div class="quiz-fb" id="q10a-fb"></div>
+    </div>
+    <div class="quiz-box">
+      <div class="q-label">Q 10-B ｜ 総合</div>
+      <div class="q-text">このモジュール全体で最も大切なメッセージはどれですか？</div>
+      <div class="quiz-choices" id="q10b">
+        <button onclick="answer(this,'q10b','wrong')">① EMはすべての環境問題と病気を解決できる万能の科学技術だ</button>
+        <button onclick="answer(this,'q10b','wrong')">② EMは効果がないので学ぶ必要はない</button>
+        <button onclick="answer(this,'q10b','wrong')">③ 微生物は悪者なので、できるだけ殺菌する環境が理想だ</button>
+        <button onclick="answer(this,'q10b','correct')">④ 微生物の共生の力を活かすという発想は社会に根づいており、科学的な目を持ちながらその可能性と限界を正しく評価することが大切だ</button>
+      </div>
+      <div class="quiz-fb" id="q10b-fb"></div>
+    </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== CH11 ===== -->
+<section class="chapter" id="ch11">
+  <div class="chapter-label">Chapter 11</div>
+  <h2>☢️ 福島原発事故とEM菌 ― 比較実験が示したこと</h2>
+
+  <div class="sec-body">
+    <p>2011年3月11日、東日本大震災に伴う東京電力福島第一原子力発電所の事故は、大量の放射性物質を環境中に放出しました。その後、「EMを農地にまけば放射性セシウムが消える」という主張が広まり、福島県内の農地や学校などにEM菌が散布されました。このとき何が起き、比較実験からは何がわかったのでしょうか。事実を丁寧に確認していきます。</p>
+  </div>
+
+  <div class="sec-hd">⚛️ 放射性セシウムとは何か（前提知識）</div>
+  <div class="tbl-wrap">
+    <table class="tbl">
+      <tr><th>項目</th><th>詳細</th></tr>
+      <tr><td>種類</td><td>セシウム134（半減期2年）とセシウム137（半減期30年）が福島事故で放出された</td></tr>
+      <tr><td>農地への影響</td><td>土壌表層に沈着し、作物に移行する。特にカリウムと化学的性質が似ているため根から吸収されやすい</td></tr>
+      <tr><td>自然減衰</td><td>事故当初は134と137が1:1で存在。134は2年で半減するため、時間とともに全体の放射線量は自然に減っていく</td></tr>
+      <tr><td>科学的な除染方法</td><td>表土の削り取り、反転耕（深い土と入れ替え）、カリウム施肥（セシウムの作物移行を抑制）などが実証されている</td></tr>
+    </table>
+  </div>
+
+  <div class="sec-hd">📢 比嘉照夫氏の主張</div>
+  <div class="sec-body">
+    <p>事故後、比嘉照夫氏はコラムや講演で「EMを徹底して活用することにより、居住地域における放射能汚染対策は万全となる」「EMによる根本的な放射能対策が可能である」と主張しました。特に「EMに含まれる光合成細菌が放射線をエネルギーとして使うため、セシウムの半減期が短くなる」という説明を行いました。</p>
+  </div>
+
+  <div class="warn">⚠️ 物理学の基本：放射性元素の「半減期」は原子核の崩壊によって決まる物理定数です。微生物の化学反応は原子の「組み替え」のレベルで起きるもので、原子核そのものには作用できません。光合成細菌を40年研究してきた広島国際学院大学の佐々木健教授は「放射能を減らす能力は光合成細菌にはない」と明確に否定しています。世界中の核物理学者が同意する基本原則です。</div>
+
+  <div class="sec-hd">🔬 フジテレビによる比較実験（2012年10月）</div>
+  <div class="sec-body">
+    <p>2012年10月17日、フジテレビ「スーパーニュース」は「福島でまかれる"EM菌" 検証！除染効果はあるのか」を放映しました。EM菌関係者の指示に従い、<strong>EMをまいた畑（A区）</strong>と<strong>EMをまいていない隣の畑（B区）</strong>の土を採取し、環境省から放射性物質分析を依頼されている同位体研究所で測定しました。</p>
+  </div>
+
+  <div class="tbl-wrap">
+    <table class="tbl">
+      <tr><th></th><th>A区（EM散布あり）</th><th>B区（EM散布なし）</th></tr>
+      <tr><td><strong>放射性セシウム測定値</strong></td><td><strong style="color:var(--red)">8,002 Bq/kg</strong></td><td>5,240 Bq/kg</td></tr>
+      <tr><td><strong>結果</strong></td><td colspan="2">EMをまいた畑の方がセシウム量が多い</td></tr>
+    </table>
+  </div>
+
+  <div class="point">
+    <div class="pt-title">📊 この結果をどう解釈するか</div>
+    この一回の比較で「EMがセシウムを増やす」と断言することはできません。農地ごとに元々の汚染量が異なり、また測定地点の差・土の性質の違いなど多くの変数があります。ただし少なくとも「EMによってセシウムが減少した」という証拠にはなりませんでした。専門家からは「この時期のセシウムの減少は、半減期の短いセシウム134（半減期2年）の自然崩壊で説明できる」という指摘もありました。
+  </div>
+
+  <div class="sec-hd">🌾 「EM堆肥で作物へのセシウム移行が抑制された」という報告について</div>
+  <div class="sec-body">
+    <p>別の実験として、福島県農林水産部が「EMで発酵させた堆肥（EM有機堆肥）は放射性セシウムの作物への移行抑制に著しい効果がある」という発表を行い、比嘉氏はこれを根拠の一つとして挙げました。</p>
+    <p>しかし科学者からは重要な指摘がありました。EM堆肥には大量のカリウムが含まれており、比較対照として使われた堆肥はカリウムが少なかった。セシウムはカリウムと化学的性質が似ているため、<strong>カリウムが多いとセシウムが作物に吸収されにくくなる</strong>ことは、農学的に以前から知られた事実です。つまり「EM菌の効果」ではなく「カリウム施肥の効果」で説明できる可能性が高いと指摘されています。</p>
+  </div>
+
+  <div class="tbl-wrap">
+    <table class="tbl">
+      <tr><th>主張</th><th>科学的な問題点</th></tr>
+      <tr><td>光合成細菌がセシウムの半減期を短くする</td><td>❌ 物理的に不可能。原子核崩壊は化学反応で変えられない</td></tr>
+      <tr><td>EM散布でセシウムが消える</td><td>❌ フジテレビの比較実験ではEM農地の方が値が高かった</td></tr>
+      <tr><td>EM堆肥で作物へのセシウム移行が抑制された</td><td>⚠️ カリウム施肥の効果である可能性が高く、EM固有の効果とは言えない</td></tr>
+      <tr><td>「波動」でEM未散布の隣の畑にも効果が及ぶ</td><td>❌ 科学的「波動」とは別物の用語使用。測定不可能な主張</td></tr>
+    </table>
+  </div>
+
+  <div class="sec-hd">😟 なぜこれが重要な問題なのか</div>
+  <div class="sec-body">
+    <p>放射能汚染に苦しむ福島の農家や住民にとって、「EMで除染できる」という情報は希望に見えたかもしれません。しかし科学的根拠のない方法に時間・お金・労力を費やすことは、本当に効果のある対策（表土削り取り・カリウム施肥・反転耕など）に向かうべきリソースを奪う可能性があります。</p>
+    <p>このことは、EM菌が「農業・生ゴミ・臭気対策」などの分野で価値を持ちうることと、全く別の問題です。「あるところでは有効」であっても「どこでも何でも有効」とはならない。それがいつも科学的評価の原則です。</p>
+  </div>
+
+  <div class="story-box">
+    <div class="st-title">📖 EM製造元自身の声</div>
+    <p>注目すべきことに、EM製品の老舗メーカーである「サン興産業」は2014年、比嘉氏の放射能除染の主張に対して「先に効果を確認すべきで、無責任で品位を疑う」と公式に批判しました。EMを長年製造してきた会社自身が、除染効果の主張は行き過ぎだと認めたのです。</p>
+  </div>
+
+  <div class="point">
+    <div class="pt-title">🌟 この章で一番大切なこと</div>
+    この章の目的は「EM菌を全否定すること」ではありません。農業・生ゴミ・臭気対策での活用実績と、放射性物質の除染という全く異なる話を区別することが大切だということです。また、「善意の人が広めた情報でも、科学的根拠がなければ危険を生む」という教訓は、EMに限らず現代社会で生きる私たちが常に持つべき視点です。<br>これはまさに、Ch.06「科学的視点」とCh.07「コッホとペッテンコーファーの論争」が教えてくれたこととつながっています。
+  </div>
+
+  <div class="minitest-area">
+    <button class="mt-toggle" onclick="toggleMinitest(this)" aria-expanded="false">
+      <span>📝 Chapter 11 ミニテスト ― 最終総合問題</span>
+      <span class="mt-arrow">▼</span>
+    </button>
+    <div class="mt-body">
+      <div class="mt-note">このモジュール全体の学びを使って考えよう。正解・不正解ではなく「なぜそう考えるか」を意識して。</div>
+
+    <div class="quiz-box">
+      <div class="q-label">Q 11-A</div>
+      <div class="q-text">フジテレビの比較実験で「EM散布農地のセシウム量が、未散布農地より高かった」という結果について、科学的に正しい解釈はどれですか？</div>
+      <div class="quiz-choices" id="q11a">
+        <button onclick="answer(this,'q11a','wrong')">① EMがセシウムを増加させることが証明された</button>
+        <button onclick="answer(this,'q11a','wrong')">② EMには全く効果がないことが完全に証明された</button>
+        <button onclick="answer(this,'q11a','correct')">③ 少なくともEMによってセシウムが減少したという証拠にはならず、一回の測定では元々の農地の汚染量の差など多くの変数があるため断定はできない</button>
+        <button onclick="answer(this,'q11a','wrong')">④ 測定ミスなので、この実験結果は無視してよい</button>
+      </div>
+      <div class="quiz-fb" id="q11a-fb"></div>
+    </div>
+
+    <div class="quiz-box">
+      <div class="q-label">Q 11-B ｜ 最終総合</div>
+      <div class="q-text">Ch.01〜11を全部通して学んだあなたへ。EM菌についての最も誠実な理解として正しいのはどれですか？</div>
+      <div class="quiz-choices" id="q11b">
+        <button onclick="answer(this,'q11b','wrong')">① EM菌は農業・環境・除染・医療すべてに効果があり、万能の技術だ</button>
+        <button onclick="answer(this,'q11b','wrong')">② EM菌は全部ニセ科学なので一切信用してはいけない</button>
+        <button onclick="answer(this,'q11b','correct')">③ 農業や生ゴミ処理などの分野では実績と可能性があるが、分野によって科学的根拠には大きな差がある。特に放射能除染については現在の物理学・生物学から見て根拠がない</button>
+        <button onclick="answer(this,'q11b','wrong')">④ 開発者が農学博士なので、すべての主張は科学的に信頼できる</button>
+      </div>
+      <div class="quiz-fb" id="q11b-fb"></div>
+    </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== CH12 ===== -->
+<section class="chapter" id="ch12">
+  <div class="chapter-label">Chapter 12</div>
+  <h2>🌍 光合成細菌の地球史 ― 地獄の星から生命の星へ</h2>
+
+  <div class="sec-body">
+    <p>光合成細菌の話をするには、まず地球の「誕生」から始めなくてはなりません。現在の地球とは全くちがう、灼熱と毒ガスと放射線に満ちた「地獄の星」としての地球から、このモジュールを締めくくる壮大な物語です。</p>
+  </div>
+
+  <div class="sec-hd">🔥 46億年前の地球 ― 誰も生きられない星</div>
+  <div class="sec-body">
+    <p>今から46億年前、地球が誕生した直後の姿を想像してみてください。無数の隕石が激しく衝突し、地表全体がドロドロに溶けたマグマで覆われていました。大気の温度は数百度。岩石から噴き出したガスが大気を満たしましたが、そこに酸素はほとんどありませんでした。</p>
+    <p>大気の主成分は<strong>二酸化炭素・窒素・水蒸気</strong>、そして海や陸からは<strong>硫化水素（腐った卵のような強烈な臭いの毒ガス）・メタン・アンモニア</strong>が噴き出していました。オゾン層もないため、太陽からの強烈な紫外線が地表に直接降り注いでいました。現代の生き物なら一瞬で死んでしまう、まさに「地獄の環境」です。</p>
+  </div>
+
+  <div class="tbl-wrap">
+    <table class="tbl">
+      <tr><th>項目</th><th>原始地球（46〜40億年前）</th><th>現在の地球</th></tr>
+      <tr><td>大気の酸素</td><td>ほぼゼロ</td><td>約21%</td></tr>
+      <tr><td>主な大気成分</td><td>CO₂・N₂・水蒸気・メタン・硫化水素</td><td>N₂・O₂・CO₂</td></tr>
+      <tr><td>紫外線</td><td>遮るオゾン層がなく直接降り注ぐ</td><td>オゾン層が遮断</td></tr>
+      <tr><td>地表温度</td><td>マグマに覆われ数百〜1000度超</td><td>平均約15度</td></tr>
+      <tr><td>生き物</td><td>ゼロ（海底深部に初期生命が誕生しつつあった）</td><td>数百万種以上</td></tr>
+    </table>
+  </div>
+
+  <div class="sec-hd">🦠 40〜35億年前 ― 最初の生命と光合成細菌の誕生</div>
+  <div class="sec-body">
+    <p>地球が少しずつ冷え、約40億年前に海ができ始めると、深い海底の「熱水噴出孔」（海底火山の割れ目から高温の熱水が噴き出す場所）で最初の生命が誕生したと考えられています。温度は100〜400℃。硫化水素や水素が豊富で、酸素はない。そんな過酷な環境こそが命の揺りかごでした。</p>
+    <p>そしておよそ<strong>35〜30億年前</strong>、光合成細菌が地球に登場します。彼らは光のエネルギーを使いながら、誰にとっても毒であるはずの<strong>硫化水素・メタン・アンモニア</strong>をエサとして取り込み、それをエネルギーに変えて生きていたのです。地獄の毒ガスを「ごちそう」として食べる存在――それが光合成細菌の正体です。</p>
+  </div>
+
+  <div class="story-box">
+    <div class="st-title">🌋 なぜ「毒を食べられる」のか</div>
+    <p>現代の私たちが硫化水素を吸えば即座に中毒で死にます。しかし光合成細菌にとって硫化水素は「燃料」です。光合成細菌は光エネルギーを使って硫化水素（H₂S）から水素（H）を引き抜き、その水素を使って有機物をつくります。硫化水素から水素を奪った残りは硫黄（S）として排出します。</p>
+    <p>つまり光合成細菌は、現代の私たちにとっての毒ガスに満ちた世界でこそ、もっとも輝く存在なのです。</p>
+  </div>
+
+  <div class="sec-hd">🌡️ 極限環境を生き抜く微生物たちの能力</div>
+  <div class="sec-body">
+    <p>光合成細菌をはじめとする原始的な微生物たちは、現代の生き物には想像もできないような極限環境で生きています。こうした微生物を「<strong>極限環境微生物（エクストリモファイル）</strong>」と呼びます。</p>
+  </div>
+
+  <div class="tbl-wrap">
+    <table class="tbl">
+      <tr><th>環境の種類</th><th>代表的な微生物</th><th>耐えられる条件</th></tr>
+      <tr><td>🔥 超高温</td><td>超好熱菌（アーキア類）</td><td>80〜121℃の熱水の中で生育</td></tr>
+      <tr><td>🧪 強酸性・強アルカリ</td><td>好酸性菌・好アルカリ菌</td><td>pH0〜1の硫酸の中や、pH12以上のアルカリ環境</td></tr>
+      <tr><td>☢️ 放射線</td><td>デイノコッカス・ラジオデュランス</td><td>ヒトの致死量の500〜1500倍の放射線でも生存<br>（ギネスブック認定「世界最強の細菌」）</td></tr>
+      <tr><td>🌑 無酸素・高圧</td><td>嫌気性細菌・深海菌</td><td>酸素なし・水圧1000気圧以上の深海底</td></tr>
+      <tr><td>❄️ 超低温</td><td>好冷菌</td><td>南極の氷の中（−20℃以下）でも代謝</td></tr>
+      <tr><td>🧂 高塩分</td><td>好塩菌</td><td>飽和食塩水（塩分30%以上）の中で生育</td></tr>
+    </table>
+  </div>
+
+  <div class="point">
+    <div class="pt-title">☢️ ギネス認定「世界最強の細菌」デイノコッカス・ラジオデュランス</div>
+    この細菌の放射線耐性は驚異的です。人間は10グレイ（Gy）の放射線で死にますが、この菌は<strong>5,000グレイを浴びても死なず、15,000グレイでも37%が生き残ります</strong>。秘密は「超高速DNA修復能力」。放射線でDNAが何千か所も同時に切れても、数時間以内に完全修復してしまいます。放射線だけでなく、高温・低温・乾燥・強酸にも耐えます。
+  </div>
+
+  <div class="sec-hd">🌿 光合成細菌が「地球を変えた」</div>
+  <div class="sec-body">
+    <p>光合成細菌（特にシアノバクテリアという仲間）が、地球の歴史を根底から書き換えました。彼らは光合成の副産物として<strong>酸素</strong>を大量に放出し始めました。最初はこの酸素こそが「猛毒」でした。当時の嫌気性生命にとって酸素は毒だったのです。多くの嫌気性生命が絶滅しましたが、逆に酸素を利用する新しい生命（好気性生物）が爆発的に進化していきました。</p>
+    <p>この出来事を「<strong>大酸化事変</strong>」（約24億年前）と呼びます。光合成細菌の活動がなければ、今日の酸素豊富な大気は存在せず、私たち人間を含む動植物は誕生しなかった。光合成細菌は地球の生命史を根本から変えた「革命家」でもあります。</p>
+  </div>
+
+  <div class="sec-hd">📖 「1200度耐性」という主張について ― 科学的な目で見てみよう</div>
+  <div class="sec-body">
+    <p>比嘉照夫氏は著作や講演の中で「光合成細菌は糖蜜と混和し、1200℃以上の高温でセラミックス化しても、その情報は失活せず、そのセラミックスから生きた状態で再度取り出すことが可能な超スーパー菌だ」と述べました。</p>
+    <p>これはどう評価すべきでしょうか。</p>
+  </div>
+
+  <div class="tbl-wrap">
+    <table class="tbl">
+      <tr><th></th><th>科学的に確かめられた事実</th><th>比嘉氏の主張（1200℃）</th></tr>
+      <tr><td>超好熱菌の耐熱限界</td><td>現在確認されている生命の耐熱限界は約121℃（加圧下）</td><td>1200℃はこの100倍以上</td></tr>
+      <tr><td>タンパク質の変性</td><td>タンパク質は通常60〜100℃程度で変性・破壊される</td><td>1200℃では細胞を構成するすべての有機分子が焼失する</td></tr>
+      <tr><td>科学的な検証</td><td>査読付き科学論文での実証なし</td><td>独自の著作・講演での主張</td></tr>
+      <tr><td>専門家の評価</td><td>現代の生命科学の知見から見て不可能とされる</td><td>EM製造元のサン興産業も過大主張を批判</td></tr>
+    </table>
+  </div>
+
+  <div class="warn">光合成細菌が地球最古の過酷な環境で生き延びてきた驚異的な生命であることは科学的な事実です。しかし「1200℃に耐える」という主張は、現在の生命科学・物理化学の知識から見て根拠のある話ではありません。比嘉氏の情熱と農業分野での功績と、科学的に検証された主張の範囲は、別々に評価することが大切です。</div>
+
+  <div class="sec-hd">🌟 光合成細菌が伝えるメッセージ ― 「追い詰められた環境でこそ輝く」</div>
+  <div class="sec-body">
+    <p>科学的な誇張を取り除いた上で、光合成細菌の本当の姿を見てみましょう。それは十分に、いや「過剰なくらい」に驚くべき存在です。</p>
+  </div>
+
+  <div class="story-box">
+    <div class="st-title">🔬 光合成細菌の「本当の」すごさ</div>
+    <p>35億年間、一度も絶滅せずに生き続けてきた。酸素もなく、毒ガスに満ち、放射線が降り注ぎ、温度が高かった原始地球で生まれ、今も水田の泥・ドブ・腐敗物の中・硫黄泉など「何かが腐っている、汚染されている場所」に生息しています。なぜなら、そういう環境こそが、彼らにとっての「ごちそう」があふれている場所だから。</p>
+    <p>「汚染された環境で死なずに生き、その汚染物質をエネルギーに変えて、きれいな物質に変換する」――これが光合成細菌の35億年分の生存戦略です。現代の農業や環境浄化でEMが着目される理由の根本は、ここにあります。</p>
+  </div>
+
+  <div class="quote-box">
+    「地球がどんなに汚れても、微生物たちが浄化し続けてきた。その力を借りることができれば、人間も地球と共に生きていける。」
+    <div class="q-src">― 光合成細菌の生命史が示す可能性（比嘉照夫氏の思想の核心）</div>
+  </div>
+
+  <div class="point">
+    <div class="pt-title">💡 不登校・中退・社会人…「追い詰められた場所」で生まれる強さ</div>
+    光合成細菌は、誰もが「生きられない」と思うような環境で、逆にそこに合わせて進化し、その「毒」をエネルギーに変えてきました。これはある意味、困難な環境を経験してきた人間にも重なる話です。恵まれた「普通の環境」ではなく、過酷な場所でこそ磨かれた能力がある。生き物の歴史は、そのことを教えてくれます。
+  </div>
+
+  <div class="minitest-area">
+    <button class="mt-toggle" onclick="toggleMinitest(this)" aria-expanded="false">
+      <span>📝 Chapter 12 最終ミニテスト</span>
+      <span class="mt-arrow">▼</span>
+    </button>
+    <div class="mt-body">
+      <div class="mt-note">このモジュール全体の学びを総動員しよう。</div>
+
+    <div class="quiz-box">
+      <div class="q-label">Q 12-A</div>
+      <div class="q-text">原始地球の環境について、科学的に正しいものはどれですか？</div>
+      <div class="quiz-choices" id="q12a">
+        <button onclick="answer(this,'q12a','wrong')">① 原始地球の大気は今とほぼ同じで、酸素が豊富だった</button>
+        <button onclick="answer(this,'q12a','correct')">② 原始地球の大気に酸素はほぼなく、硫化水素・メタンなどが充満し、高温・強紫外線の環境だった</button>
+        <button onclick="answer(this,'q12a','wrong')">③ 原始地球はすでに動植物が豊富に存在していた</button>
+        <button onclick="answer(this,'q12a','wrong')">④ 原始地球は現在より寒冷で、氷に覆われていた</button>
+      </div>
+      <div class="quiz-fb" id="q12a-fb"></div>
+    </div>
+
+    <div class="quiz-box">
+      <div class="q-label">Q 12-B ｜ 最終問題</div>
+      <div class="q-text">Ch.01〜12 すべてを通して学んだあなたへ。光合成細菌が「汚染・毒ガス・過酷な環境」の中でこそ力を発揮する理由として、正しいものはどれですか？</div>
+      <div class="quiz-choices" id="q12b">
+        <button onclick="answer(this,'q12b','wrong')">① 光合成細菌は魔法のような能力を持っており、どんな環境でも無敵だから</button>
+        <button onclick="answer(this,'q12b','correct')">② 光合成細菌は原始地球の汚染環境（硫化水素・メタンなど）でエサを得て生まれた生き物なので、汚染物質をエネルギー源として活用できるから</button>
+        <button onclick="answer(this,'q12b','wrong')">③ 光合成細菌は放射能を除去する能力を持っているから</button>
+        <button onclick="answer(this,'q12b','wrong')">④ 光合成細菌は1200℃の高温にも耐えられるため、どんな汚染にも負けないから</button>
+      </div>
+      <div class="quiz-fb" id="q12b-fb"></div>
+    </div>
+    </div>
+  </div>
+</section>
+
+<!-- まとめ -->
+<section style="background:linear-gradient(135deg,var(--cyan-ll),#e0f7fa);border-radius:14px;padding:1.5rem;margin-top:2rem;border:2px solid var(--cyan-l)">
+  <h3 style="color:var(--cyan-d);margin-bottom:1rem;font-size:1.1rem">📋 このモジュールのまとめ</h3>
+  <ul style="list-style:none;display:flex;flex-direction:column;gap:.55rem">
+    <li>🔬 EM（有用微生物群）は単一の菌ではなく、善玉菌の<strong>チーム</strong></li>
+    <li>🦠 主役は<strong>光合成細菌・乳酸菌・酵母</strong>の3種で、互いに支え合う</li>
+    <li>⚗️ 発酵と腐敗は<strong>同じ分解現象</strong>、人に有用かどうかで呼び方が変わる</li>
+    <li>🌱 農業・生ゴミ・水質浄化・畜産など<strong>多分野で世界130カ国以上</strong>が活用</li>
+    <li>🌺 1941年沖縄生まれの<strong>比嘉照夫</strong>氏が、農薬中毒の挫折を経て、「バケツの奇跡」という偶然の発見から1982年にEMを完成させた</li>
+    <li>🤝 <strong>船井幸雄</strong>氏がEMを「本物」として推薦し、農業の枠を超えた普及の追い風となった</li>
+    <li>🌊 全国47都道府県・延べ2万人以上が参加した市民ボランティアによる川・海の浄化活動が広まった</li>
+    <li>☀️ 光合成細菌は<strong>35〜30億年前</strong>に地球に現れた。酸素ゼロ・硫化水素・メタン・強紫外線の「原始地球の地獄環境」を生き抜いた最古の生き物の一つ</li>
+    <li>🔥 光合成細菌は硫化水素・メタン・アンモニアなどの毒ガスを<strong>エサ（エネルギー源）</strong>として利用し、汚染環境の中でこそ力を発揮する</li>
+    <li>🌿 光合成細菌の仲間（シアノバクテリア）が酸素を放出し、<strong>大酸化事変</strong>（24億年前）によって現在の地球環境の基盤をつくった</li>
+    <li>☢️ 放射線耐性菌（デイノコッカス）など、人間の致死量の500倍以上の放射線に耐える微生物も実在するが、光合成細菌の「1200℃耐性」は科学的に実証されていない主張</li>
+    <li>🔭 科学的思考で「効果の証拠」を見極める目を養おう</li>
+    <li>☢️ 福島原発事故後の「EM除染」について、比較実験ではEM農地のセシウムが減少したという証拠は得られず、物理学的に「微生物が放射性元素の半減期を変える」ことは不可能</li>
+    <li>💚 <strong>「追い詰められた環境でこそ力を発揮する」</strong>のが光合成細菌35億年の生存戦略。過酷な環境を経てきた生き物（そして人間も）の強さはそこにある</li>
+  </ul>
+</section>
+
+</div><!-- /container -->
+
+<!-- モーダル: 光合成細菌 -->
+<div class="modal-overlay" id="modal-kosei">
+  <div class="modal-body">
+    <div class="modal-header"><span class="mh-icon">☀️</span>
+      <div><h3>光合成細菌</h3><div style="font-size:.82rem;opacity:.85">Photosynthetic Bacteria</div></div></div>
+    <div class="modal-content">
+      <p><strong>光のエネルギーを使って生きる</strong>、地球でもっとも古い生き物の一群。植物の光合成と似ていますが、酸素を出しません。</p>
+      <p><strong>EMでの役割</strong>：硫化水素などの有害物質（腐敗臭の原因）が大好物で、それをエサにして生きます。水田の泥の中にも自然にいます。</p>
+      <p><strong>弱点</strong>：腐敗菌が多い環境では悪玉菌に引きずられやすい。乳酸菌・酵母と組み合わせることで力を発揮します。</p>
+      <div class="point" style="margin-top:.8rem">
+        <div class="pt-title">💡 ポイント</div>
+        光合成細菌は地球に酸素がなかった約30億年前から存在する「超古参」の生き物。現在の酸素豊富な大気は、こうした原始の微生物たちが長い時間をかけてつくったともいえます。
+      </div>
+      <button class="modal-close" onclick="closeModal('modal-kosei')">閉じる</button>
+    </div>
+  </div>
+</div>
+
+<!-- モーダル: 乳酸菌 -->
+<div class="modal-overlay" id="modal-nyusan">
+  <div class="modal-body">
+    <div class="modal-header"><span class="mh-icon">🥛</span>
+      <div><h3>乳酸菌</h3><div style="font-size:.82rem;opacity:.85">Lactic Acid Bacteria</div></div></div>
+    <div class="modal-content">
+      <p><strong>糖類をエネルギー源</strong>として、大量の乳酸をつくり出します。乳酸は酸性で、悪玉菌が嫌いな環境をつくるため、強力な「バリア」になります。</p>
+      <p><strong>EMでの役割</strong>：腐敗菌の増殖を抑え、光合成細菌を守ります。EMの「警備員」的な存在です。</p>
+      <p><strong>身近な例</strong>：ヨーグルト・チーズ・味噌・漬物・キムチ・ヤクルトなど。腸内環境を整える善玉菌としても有名。</p>
+      <div class="memo" style="margin-top:.8rem">乳酸菌には数百種類以上があり、ビフィズス菌・L-92乳酸菌・ラブレ菌など、それぞれ得意なことが異なります。</div>
+      <button class="modal-close" onclick="closeModal('modal-nyusan')">閉じる</button>
+    </div>
+  </div>
+</div>
+
+<!-- モーダル: 酵母 -->
+<div class="modal-overlay" id="modal-kobo">
+  <div class="modal-body">
+    <div class="modal-header"><span class="mh-icon">🍞</span>
+      <div><h3>酵母</h3><div style="font-size:.82rem;opacity:.85">Yeast</div></div></div>
+    <div class="modal-content">
+      <p><strong>有機物を分解</strong>してアルコールや有機酸をつくります。生じた有機酸やアミノ酸が光合成細菌の最高のエサになります。</p>
+      <p><strong>EMでの役割</strong>：光合成細菌のために「食事を用意する家政婦さん」。また、植物の生育に必要な物質（ビタミンなど）もつくります。</p>
+      <p><strong>身近な例</strong>：パン（生地をふくらませる）、ビール・ワイン・日本酒（アルコール発酵）、みりんなど。</p>
+      <div class="memo" style="margin-top:.8rem">酵母は菌類（真菌）の一種で、核（核膜）を持つ「真核生物」。乳酸菌や光合成細菌は核膜のない「原核生物（細菌）」で、生物学的な分類が異なります。</div>
+      <button class="modal-close" onclick="closeModal('modal-kobo')">閉じる</button>
+    </div>
+  </div>
+</div>
+
+<!-- モーダル: 比嘉照夫 詳細 -->
+<div class="modal-overlay" id="modal-higa">
+  <div class="modal-body">
+    <div class="modal-header"><span class="mh-icon">🧑‍🏫</span>
+      <div><h3>比嘉 照夫（ひが てるお）</h3><div style="font-size:.82rem;opacity:.85">1941〜｜沖縄県｜農学博士｜EM技術の生みの親</div></div></div>
+    <div class="modal-content">
+      <p><strong>生い立ち：</strong>1941年12月28日、沖縄県に生まれる。太平洋戦争が始まった年。幼少期は戦後の混乱と貧困の中で育つ。しかし沖縄の自然・発酵文化・泡盛や島豆腐が身近にあった土地で、「生き物と微生物の力」を肌で感じて育った。</p>
+      <p><strong>研究の道へ：</strong>琉球大学農学部を卒業後、九州大学大学院へ。ミカンの品質改善を研究中に「土の中の微生物の違いが作物の差をつくる」と気づく（1968年頃）。</p>
+      <p><strong>EM開発：</strong>1970年に琉球大学講師となり、「有益な微生物が優勢な環境をつくる」という発想のもと研究を続ける。当時の科学界では異端視されながら、20年近い歳月をかけて1982年にEMを完成。</p>
+      <p><strong>世界への普及：</strong>1年の半分を世界各国での技術指導に費やし、農業・環境・建築・医療など多分野へEM技術を広げた。現在130カ国以上で活用されている。</p>
+      <p><strong>著書：</strong>「微生物の農業利用と環境保全」「地球を救う大変革」「EM産業革命」など多数。</p>
+      <div class="point" style="margin-top:.8rem">
+        <div class="pt-title">🌺 沖縄人としての信念</div>
+        比嘉氏は「自然の微生物が共存共栄する環境こそが、人間にとっても地球にとっても豊かな状態だ」と語ります。戦後沖縄という、破壊と再生を体験した土地から生まれた思想は、農業の枠を超えた「生命観」でもあります。
+      </div>
+      <div class="memo" style="margin-top:.8rem">2022年、国家が功績をたたえる「瑞宝中綬章（ずいほうちゅうじゅしょう）」を受章。</div>
+      <button class="modal-close" onclick="closeModal('modal-higa')">閉じる</button>
+    </div>
+  </div>
+</div>
+
+<!-- モーダル: コッホ -->
+<div class="modal-overlay" id="modal-koch">
+  <div class="modal-body">
+    <div class="modal-header"><span class="mh-icon">🧫</span>
+      <div><h3>ロベルト・コッホ（Robert Koch）</h3><div style="font-size:.82rem;opacity:.85">1843〜1910｜ドイツ｜細菌学の父</div></div></div>
+    <div class="modal-content">
+      <p>ドイツの医師・細菌学者。農村の開業医から出発し、独学で細菌研究を進めた異色の経歴の持ち主。</p>
+      <p><strong>主な業績：</strong>炭疽菌（1876年）・結核菌（1882年）・コレラ菌（1883年）の発見。寒天培地・ペトリ皿（シャーレ）の発明。「コッホの原則」の提唱。</p>
+      <div class="eq-box">
+        <div class="eq-main" style="font-size:1rem">コッホの原則（4条件）</div>
+        <div class="eq-desc">
+          <span>①</span> 病気の患者から必ず同じ微生物が見つかる<br>
+          <span>②</span> その微生物を純粋培養できる<br>
+          <span>③</span> 培養した菌を健康な動物に接種すると同じ病気になる<br>
+          <span>④</span> 発病した動物から同じ菌が再び取り出せる
+        </div>
+      </div>
+      <p>1905年、ノーベル生理学・医学賞を受賞。弟子には<strong>北里柴三郎</strong>（現千円札の肖像・破傷風血清療法）、エミール・ベーリング（血清療法・ノーベル賞）など。</p>
+      <button class="modal-close" onclick="closeModal('modal-koch')">閉じる</button>
+    </div>
+  </div>
+</div>
+
+<!-- モーダル: ペッテンコーファー -->
+<div class="modal-overlay" id="modal-petten">
+  <div class="modal-body">
+    <div class="modal-header"><span class="mh-icon">🏛️</span>
+      <div><h3>マックス・フォン・ペッテンコーファー</h3><div style="font-size:.82rem;opacity:.85">1818〜1901｜ドイツ｜近代衛生学の父</div></div></div>
+    <div class="modal-content">
+      <p>ドイツの衛生学者・化学者。「近代衛生学の父」「環境医学の父」とも呼ばれます。ミュンヘン大学にドイツ初の衛生学講座を設立。下水道整備を推進してミュンヘンから腸チフスを一掃した実績があります。</p>
+      <p><strong>コレラの「地盤説（複合病因論）」：</strong>コレラの原因は菌（X）だけでなく、その菌が土壌（Y）と結合してはじめてコレラの毒（Z）になる。地下水の水位・土壌・季節・環境条件が複合的に関わるという考え。</p>
+      <p><strong>日本との関係：</strong>森鷗外（作家・軍医）と緒方正規（衛生学者）がドイツ留学中に師事。鷗外の孫の名前「真樟（まくす）」はペッテンコーファーの名「マックス」にちなんでいます。</p>
+      <div class="point" style="margin-top:.8rem">
+        <div class="pt-title">💡 逆説的な真実</div>
+        自飲実験でコレラにかからなかったペッテンコーファーは確信を深めました。しかし晩年、論争で次第に孤立し、うつ病を発症。1901年2月、「無用の者は去るべし」という平素の信条を実践するようにピストル自殺を遂げました。享年83歳。科学者の信念と悲劇を同時に体現した人物です。
+      </div>
+      <button class="modal-close" onclick="closeModal('modal-petten')">閉じる</button>
+    </div>
+  </div>
+</div>
+
+<!-- 完了 -->
+<div class="modal-overlay" id="modal-complete">
+  <div class="modal-body">
+    <div class="modal-header" style="background:var(--green)">
+      <span class="mh-icon">🎉</span>
+      <div><h3>全問クリア！おめでとう！</h3></div>
+    </div>
+    <div class="modal-content" style="text-align:center">
+      <p style="font-size:1.1rem;font-weight:700;margin-bottom:.8rem">EM菌モジュール完了です✨</p>
+      <p>微生物の世界・発酵のしくみ・比嘉照夫という人・科学的な見方……<br>しっかり身についていますね！</p>
+      <p style="margin-top:.8rem;color:var(--gray-500);font-size:.88rem">これで誰かに教えられる！次のモジュールにもチャレンジしてみよう。</p>
+      <button class="modal-close" style="background:var(--green);margin-top:1.2rem" onclick="closeModal('modal-complete')">閉じる</button>
+    </div>
+  </div>
+</div>
+
+<script>
+const ANSWERS = {
+  q1a:{c:'② 複数の有用な微生物を共生させた集合体の俗称',e:'「EM菌」という単一の菌は存在しません。乳酸菌・酵母・光合成細菌などの複合体で、「EM菌」は俗称（通称）です。'},
+  q1b:{c:'③ 有用微生物群（有効な微生物たちの集まり）',e:'Effective＝有用な・有効な、Microorganisms＝微生物たち。合わせると「有用微生物群」です。'},
+  q2a:{c:'③ 光合成細菌',e:'光合成細菌はEMの中心的な役割を担います。ただし腐敗菌に引きずられやすいため、乳酸菌・酵母と組み合わせることで能力を最大限発揮できます。'},
+  q2b:{c:'② 乳酸菌・酵母・光合成細菌などが互いに助け合い、単独より大きな力を出す',e:'Ch.01で学んだように、EMの最大の特徴は「複合共生」です。3種の菌がチームを組むことで単独よりずっと大きな力を発揮します。'},
+  q3a:{c:'② どちらも微生物の分解だが、人間にとって有用かどうかで呼び方が変わる',e:'発酵と腐敗は「微生物が有機物を分解する」という現象としては同じです。人間に役立てば「発酵」、有害であれば「腐敗」と呼ぶだけです。'},
+  q3b:{c:'③ 乳酸菌がつくる乳酸によって酸性環境ができ、悪玉菌が住みにくくなるから',e:'Ch.02で乳酸菌は「糖→乳酸」をつくると学びました。この章の乳酸発酵の式（C₆H₁₂O₆→乳酸）でも確認できます。乳酸の酸性が悪玉菌を抑えます。'},
+  q4a:{c:'③ 米ぬかなどをEMで発酵させた土壌改良資材',e:'EMボカシは米ぬか・油かすなどの有機物をEMで発酵させた資材です。土壌に投入することで善玉菌を増殖させ農作物の生育を助けます。'},
+  q4b:{c:'② 腐敗ではなく発酵が起き、栄養豊富な堆肥になる',e:'Ch.03で学んだように、EMの善玉菌が優勢になると「腐敗→発酵」へ方向が変わります。生ゴミにEMボカシを混ぜることでこれが起きます。'},
+  q5a:{c:'② 九州大学でミカンの品質改善を研究していたとき',e:'1968年頃、九州大学でミカン研究中に「土の中の微生物の違いが作物の差をつくる」と気づいたことがEM開発の出発点です。'},
+  q5b:{c:'③ 有益な微生物が優勢な環境をつくり、農薬に頼らない農業を実現すること',e:'Ch.01〜04で学んだように、EMは「善玉菌が優勢な環境をつくる」ことが核心。比嘉氏はその発想を持って、農薬に依存しない農業を目指しました。'},
+  q6a:{c:'③ EMにはすべての病気や環境問題を確実に解決する科学的証明がある',e:'これが誤りです。EMには農業など多くの実績がある一方、すべての効果に十分な科学的証明があるわけではありません。批判的な目で情報を見ることが大切です。'},
+  q6b:{c:'② 信念を持ちながらも実験・検証を繰り返し、証拠を積み上げることが科学的な探究だ',e:'比嘉氏は批判を受けながらも20年間、実験・検証を続けてEMを完成させました。これが科学的な探究の姿です。「信念＝正しい」ではなく「信念＋証拠」が科学です。'},
+  q7a:{c:'③ 「菌だけではコレラは発症しない」という自説を実証するため',e:'ペッテンコーファーはコッホの「菌が原因」説に反論するため、命がけで自飲実験を行いました。彼の主張は「菌＋環境条件が揃ってはじめて発症する」でした。'},
+  q7b:{c:'③ コッホの「菌原因説」もペッテンコーファーの「環境要因説」も、それぞれ一部正しかった',e:'コレラはコレラ菌O1型・O139型が原因（コッホが正しかった）。一方、感染量・免疫・健康状態などで発症しない場合があり、環境も重要だという点ではペッテンコーファーの洞察も正しかった。Ch.06の「科学的思考」の視点で両方を評価できますね。'},
+  q8a:{c:'② 複数の微生物を混ぜて捨てた液をまいた草むらだけが、一週間後に元気よく育っていたこと',e:'比嘉氏が研究後に複数の安全な微生物をまとめてバケツに捨て、それを草むらにまいたところ、その部分だけが1週間後に元気よく育っていました。「微生物の組み合わせ」という発想の原点です。'},
+  q8b:{c:'③ 効果の科学的実証は不十分な部分もあり、市民活動の意義と科学的評価を分けて考える必要がある',e:'Ch.06で学んだように、効果の実証が十分でないものもあります。環境省も客観的データを把握していないとし、研究者からも批判的な意見があります。一方、市民が環境を想い行動すること自体には意義があります。両者は分けて考えることが大切です。'},
+  q9a:{c:'② 腐敗菌の多い環境では腐敗側に引きずられてしまい、光・温度・エサの条件も厳しいから',e:'光合成細菌は周囲の微生物環境に強く影響を受け、腐敗菌が多いと腐敗側に引きずられてしまいます。さらに光・温度・エサが揃わないと増殖しません。実際に秋の低温で培養に失敗した事例もあります。'},
+  q9b:{c:'② 乳酸菌がつくる乳酸が環境を酸性にし、腐敗菌が生きられなくなるから',e:'Ch.02・03で学んだように、乳酸菌は糖から乳酸をつくります。この乳酸が環境をpH3.5以下の強酸性にすることで、腐敗菌が生きられなくなります。これにより光合成細菌が腐敗菌に引きずられなくなり、安定して力を発揮できます。'},
+  q10a:{c:'② 農薬・化学肥料への過依存に代わる持続可能な農業・環境技術として、市民・農家・研究者の実践の積み重ねで広まったから',e:'EMは国家や国際機関が義務化したものではなく、農薬への代替を求める農家、環境浄化を望む市民、研究者たちの実践の積み重ねで世界に広まりました。その過程には船井幸雄氏のような支援者の存在もありました。'},
+  q10b:{c:'④ 微生物の共生の力を活かすという発想は社会に根づいており、科学的な目を持ちながらその可能性と限界を正しく評価することが大切だ',e:'このモジュール全体のメッセージです。EMには農業・環境での実績がある一方、科学的証明が不十分な部分もあります。「信じるか否か」ではなく、「証拠を確認しながら可能性を探る」科学的姿勢こそが大切です。コッホとペッテンコーファーの論争もこの姿勢を教えてくれます。'},
+  q11a:{c:'③ 少なくともEMによってセシウムが減少したという証拠にはならず、一回の測定では元々の農地の汚染量の差など多くの変数があるため断定はできない',e:'一回の測定結果で「EMがセシウムを増やした」と断定することも「完全に効果がない」と断定することも科学的ではありません。ただし「EMでセシウムが減少した」という証明にならなかったことは確かで、その後も科学的根拠は示されていません。'},
+  q11b:{c:'③ 農業や生ゴミ処理などの分野では実績と可能性があるが、分野によって科学的根拠には大きな差がある。特に放射能除染については現在の物理学・生物学から見て根拠がない',e:'これがこのモジュール全体を通じた最も誠実な理解です。EMを「全肯定」も「全否定」もせず、分野ごとに証拠を確認する姿勢が大切です。放射能除染の主張については物理学の基本（半減期は核崩壊によって決まる）から明らかに根拠がありません。一方で農業・生ゴミ処理などの分野での活用は世界に実績があります。'},
+  q12a:{c:'② 原始地球の大気に酸素はほぼなく、硫化水素・メタンなどが充満し、高温・強紫外線の環境だった',e:'46億年前の原始地球は酸素をほぼ含まず、硫化水素・メタン・アンモニアなどの現代では毒ガスとされる物質が充満していました。オゾン層もなく、強烈な紫外線が降り注ぐ、現代の生き物なら生きられない環境でした。'},
+  q12b:{c:'② 光合成細菌は原始地球の汚染環境（硫化水素・メタンなど）でエサを得て生まれた生き物なので、汚染物質をエネルギー源として活用できるから',e:'光合成細菌は35億年前の「毒ガス充満・酸素なし」の地球で生まれ、硫化水素などをエネルギー源として進化してきました。そのため現代でも「汚染・腐敗物が多い環境」がごちそうになります。1200℃耐性は科学的に実証されておらず、放射線を除去する能力もありません。本当のすごさは「毒をエサに変える35億年の生存戦略」にあります。'}
+};
+
+const TOTAL = 24;
+let answered = new Set();
+
+function answer(btn, qid, type) {
+  if(answered.has(qid)) return;
+  answered.add(qid);
+  const container = document.getElementById(qid);
+  container.querySelectorAll('button').forEach(b => {
+    b.disabled = true;
+    if(b === btn) b.classList.add(type);
+  });
+  const fb = document.getElementById(qid+'-fb');
+  const d = ANSWERS[qid];
+  if(type === 'correct'){
+    fb.className = 'quiz-fb show ok';
+    fb.innerHTML = '✅ 正解！' + d.e;
+    launchSmallConfetti(btn);
+  } else {
+    fb.className = 'quiz-fb show ng';
+    fb.innerHTML = '❌ 不正解。正解は「' + d.c + '」です。<br>' + d.e;
+  }
+  updateProgress();
+}
+
+function updateProgress(){
+  const done = answered.size;
+  const pct = Math.round(done/TOTAL*100);
+  document.getElementById('prog-bar').style.width = pct+'%';
+  document.getElementById('prog-text').textContent = done+' / '+TOTAL+' 問';
+  if(done === TOTAL){
+    setTimeout(()=>{ launchConfetti(); openModal('modal-complete'); }, 700);
+  }
+}
+
+function openModal(id){
+  document.getElementById(id).classList.add('open');
+  document.body.style.overflow='hidden';
+}
+function closeModal(id){
+  document.getElementById(id).classList.remove('open');
+  document.body.style.overflow='';
+}
+document.querySelectorAll('.modal-overlay').forEach(m=>{
+  m.addEventListener('click', e=>{ if(e.target===m) closeModal(m.id); });
+});
+
+// ===== 折りたたみ =====
+function toggleMinitest(btn){
+  const body = btn.nextElementSibling;
+  const isOpen = btn.classList.contains('open');
+  btn.classList.toggle('open', !isOpen);
+  body.classList.toggle('open', !isOpen);
+  btn.setAttribute('aria-expanded', !isOpen);
+}
+
+// ===== 各問正解時の小花吹雪 =====
+function launchSmallConfetti(targetBtn){
+  const colors=['#0e7490','#06b6d4','#34d399','#fbbf24','#f472b6','#a78bfa','#fff'];
+  const rect = targetBtn.getBoundingClientRect();
+  const cx = rect.left + rect.width / 2;
+  const cy = rect.top + window.scrollY;
+  for(let i=0;i<36;i++){
+    const c=document.createElement('div');
+    c.style.cssText=`
+      position:fixed;
+      left:${cx}px;top:${rect.top + rect.height/2}px;
+      width:${5+Math.random()*6}px;height:${5+Math.random()*6}px;
+      background:${colors[Math.floor(Math.random()*colors.length)]};
+      border-radius:${Math.random()>.4?'50%':'2px'};
+      pointer-events:none;z-index:999;
+      animation:smallFall ${0.7+Math.random()*0.8}s ease-out forwards;
+      --dx:${(Math.random()-0.5)*200}px;
+      --dy:${-(60+Math.random()*120)}px;
+      opacity:1;
+    `;
+    document.body.appendChild(c);
+    setTimeout(()=>c.remove(), 1600);
+  }
+}
+
+function launchConfetti(){
+  const colors=['#0e7490','#06b6d4','#34d399','#fbbf24','#f472b6','#a78bfa'];
+  for(let i=0;i<80;i++){
+    const c=document.createElement('div');
+    c.className='confetti-piece';
+    c.style.cssText=`left:${Math.random()*100}vw;top:-12px;background:${colors[Math.floor(Math.random()*colors.length)]};animation-delay:${Math.random()*1.2}s;animation-duration:${2+Math.random()}s;transform:rotate(${Math.random()*360}deg);width:${6+Math.random()*8}px;height:${6+Math.random()*8}px;border-radius:${Math.random()>.5?'50%':'2px'};`;
+    document.body.appendChild(c);
+    setTimeout(()=>c.remove(),4000);
+  }
+}
+</script>
+</body>
+</html>
